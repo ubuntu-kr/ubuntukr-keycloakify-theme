@@ -1,4 +1,5 @@
 import "./KcApp.css";
+import "./KcCustomStyle.scss"
 import { lazy, Suspense } from "react";
 import type { KcContext } from "./kcContext";
 import { useI18n } from "./i18n";
