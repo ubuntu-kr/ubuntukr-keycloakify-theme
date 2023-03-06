@@ -28,7 +28,39 @@ export const { kcContext } = getKcContext<
 			//Uncomment the following line for hiding the Alert message
 			//"message": undefined
 			//Uncomment the following line for showing an Error message
-			//message: { type: "error", summary: "This is an error" }
+			// message: { type: "error", summary: "This is an error" },
+			social: {
+				providers: [
+					{
+						providerId: "github",
+						loginUrl: "github.com",
+						alias: "github",
+						displayName: "GitHub",
+
+					},
+					{
+						providerId: "github1",
+						loginUrl: "github.com",
+						alias: "github",
+						displayName: "GitHub",
+						
+					},
+					{
+						providerId: "github2",
+						loginUrl: "github.com",
+						alias: "github",
+						displayName: "GitHub",
+						
+					},
+					{
+						providerId: "github3",
+						loginUrl: "github.com",
+						alias: "github",
+						displayName: "GitHub",
+						
+					}
+				]
+			}
 		},
 		{
 			pageId: "my-extra-page-2.ftl",
