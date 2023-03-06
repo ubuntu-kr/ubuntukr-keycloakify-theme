@@ -78,7 +78,6 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 										name="password"
 										type="password"
 										autoComplete="off"
-										placeholder="Bloggs"
 										label={msg("password")} />
 									{realm.rememberMe && !usernameEditDisabled && (
 										<Input
@@ -121,16 +120,18 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 											{msg("doForgotPassword")}
 										</Button>
 									)}
-									<hr></hr>
 
 									{realm.password && social.providers !== undefined && (
-										<div id="kc-social-providers" >
-											{social.providers.map(p => (
-												<Button hasIcon element="a" href={p.loginUrl} id={`zocial-${p.alias}`} >
-													<Icon name={p.alias} style={{height: '14px'}}/> <span>{p.displayName}</span>
-												</Button>
-											))}
-										</div>
+										<>
+											<hr></hr>
+											<div id="kc-social-providers" >
+												{social.providers.map(p => (
+													<Button hasIcon element="a" href={p.loginUrl} id={`zocial-${p.alias}`} >
+														<Icon name={p.alias} style={{ height: '14px' }} /> <span>{p.displayName}</span>
+													</Button>
+												))}
+											</div>
+										</>
 									)}
 								</fieldset>
 							</Form>

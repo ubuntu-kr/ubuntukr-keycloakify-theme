@@ -17,7 +17,7 @@ export const { kcContext } = getKcContext<
 	| { pageId: "register.ftl"; authorizedMailDomains: string[]; }
 >({
 	// Uncomment to test the login page for development.
-	mockPageId: "login.ftl",
+	mockPageId: "register-user-profile.ftl",
 	mockData: [
 		{
 			pageId: "login.ftl",
@@ -70,7 +70,7 @@ export const { kcContext } = getKcContext<
 			//NOTE: You will either use register.ftl (legacy) or register-user-profile.ftl, not both
 			pageId: "register-user-profile.ftl",
 			locale: {
-				currentLanguageTag: "fr"
+				currentLanguageTag: "en"
 			},
 			profile: {
 				attributes: [

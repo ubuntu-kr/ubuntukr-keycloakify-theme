@@ -93,8 +93,55 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
             </Strip>
 
             <Strip includeCol={false} element="section" rowClassName="u-vertically-center">
-
                 <Col size={8}>
+                {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
+                        displayRequiredFields ? (
+                            <div className={clsx(props.kcContentWrapperClass)}>
+                                <div className={clsx(props.kcLabelWrapperClass, "subtitle")}>
+                                    <span className="subtitle">
+                                        <span className="required">*</span>
+                                        {msg("requiredFields")}
+                                    </span>
+                                </div>
+                            </div>
+                        ) : (<></>
+                        )
+                    ) : displayRequiredFields ? (
+                        <div className={clsx(props.kcContentWrapperClass)}>
+                            <div className={clsx(props.kcLabelWrapperClass, "subtitle")}>
+                                <span className="subtitle">
+                                    <span className="required">*</span> {msg("requiredFields")}
+                                </span>
+                            </div>
+                            <div className="col-md-10">
+                                <div className={clsx(props.kcFormGroupClass)}>
+                                    <div id="kc-username">
+                                        <label id="kc-attempted-username">{auth?.attemptedUsername}</label>
+                                        <a id="reset-login" href={url.loginRestartFlowUrl}>
+                                            <div className="kc-login-tooltip">
+                                                <i className={clsx(props.kcResetFlowIcon)}></i>
+                                                <span className="kc-tooltip-text">{msg("restartLoginTooltip")}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            <div className={clsx(props.kcFormGroupClass)}>
+                                <div id="kc-username">
+                                    <label id="kc-attempted-username">{auth?.attemptedUsername}</label>
+                                    <a id="reset-login" href={url.loginRestartFlowUrl}>
+                                        <div className="kc-login-tooltip">
+                                            <i className={clsx(props.kcResetFlowIcon)}></i>
+                                            <span className="kc-tooltip-text">{msg("restartLoginTooltip")}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </>
+                    )}
                     {/* App-initiated actions should not see warning messages about the need to complete the action during login. */}
                     {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
                         <>
