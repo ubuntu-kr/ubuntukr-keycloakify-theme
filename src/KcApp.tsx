@@ -82,7 +82,7 @@ export default function App(props: { kcContext: KcContext; }) {
             {(() => {
                 switch (kcContext.pageId) {
                     case "login.ftl": return <Login {...{ kcContext, ...pageProps }} />;
-                    // case "register.ftl": return <Register {...{ kcContext, ...pageProps }} />;
+                    case "register.ftl": return <Register {...{ kcContext, ...pageProps }} />;
                     case "register-user-profile.ftl": return <RegisterUserProfile {...{ kcContext, ...pageProps }} />;
                     case "terms.ftl": return <Terms {...{ kcContext, ...pageProps }} />;
                     case "login-reset-password.ftl": return <LoginResetPassword {...{ kcContext, ...pageProps }} />;

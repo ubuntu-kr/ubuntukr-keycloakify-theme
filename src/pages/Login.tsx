@@ -9,7 +9,7 @@ import type { PageProps } from "keycloakify/lib/KcProps";
 // Here use your own KcContext and I18n that you might have overloaded.  
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
-import { Navigation, Theme, ICONS, Icon, Button, Form, Input } from "@canonical/react-components";
+import { Icon, Button, Form, Input } from "@canonical/react-components";
 
 
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl"; }>, I18n>) {
