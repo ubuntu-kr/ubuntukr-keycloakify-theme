@@ -11,6 +11,7 @@ import { usePrepareTemplate } from "keycloakify/lib/Template";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
 import { Navigation, Theme, Strip, Col, Notification, Form, Input } from "@canonical/react-components";
+import { useState } from "react";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -45,45 +46,59 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
         kcHtmlClass
     });
 
+    const [isLangSelectorHidden, toggleLangSelector] = useState(true);
+
     if (!isReady) {
         return null;
     }
 
     return (
         <div>
-
-            <Navigation
-                items={[
-                    {
-                        label: 'ubuntu-kr.org',
-                        url: 'https://ubuntu-kr.org'
-                    }
-                ]}
-                itemsRight={
-                    (realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1) ? [
-                        {
-                            alignRight: true,
-                            items: locale.supported.map(({ languageTag }) => (
-                                {
-                                    label: labelBySupportedLanguageTag[languageTag],
-                                    url: `?kc_locale=${languageTag}`
-                                }
-                            )),
-                            label: labelBySupportedLanguageTag[currentLanguageTag]
-                        }
-                    ] : []}
-                logo={{
-                    src: 'https://github.com/ubuntu-kr/logo-artworks/raw/main/UbuntuKrCircleWhite.svg',
-                    title: 'Ubuntu Korea SSO',
-                    url: '#'
-                }}
-                theme={Theme.DARK}
-            />
-
+            <header id="navigation" className="p-navigation is-dark">
+                <div className="p-navigation__row">
+                    <div className="p-navigation__banner">
+                        <div className="p-navigation__tagged-logo">
+                            <a className="p-navigation__link" href="#">
+                                <div className="p-navigation__logo-tag">
+                                    <img className="p-navigation__logo-icon" src="https://github.com/ubuntu-kr/logo-artworks/raw/main/UbuntuKrCircleWhite.svg" alt="" />
+                                </div>
+                                <span className="p-navigation__logo-title">{msg("loginTitleHtml", realm.displayName)}</span>
+                            </a>
+                        </div>
+                        <a href="#navigation" className="p-navigation__toggle--open" title="menu">Menu</a>
+                        <a href="#navigation-closed" className="p-navigation__toggle--close" title="close menu">Close menu</a>
+                    </div>
+                    <nav className="p-navigation__nav" aria-label="Example sub navigation">
+                        <ul className="p-navigation__items">
+                            <li className="p-navigation__item">
+                                <a className="p-navigation__link" href="https://ubuntu-kr.org">ubuntu-kr.org</a>
+                            </li>
+                        </ul>
+                        <ul className="p-navigation__items">
+                            <li className={`p-navigation__item--dropdown-toggle ${isLangSelectorHidden ? "" : "is-active"}`} id="link-4">
+                                {(realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1) ?
+                                    (
+                                        <>
+                                            <a className="p-navigation__link" aria-controls="account-menu" onClick={() => toggleLangSelector(!isLangSelectorHidden)}>
+                                                {labelBySupportedLanguageTag[currentLanguageTag]}
+                                            </a>
+                                            <ul className="p-navigation__dropdown--right" id="account-menu" aria-hidden={isLangSelectorHidden}>
+                                                {locale.supported.map(({ languageTag }) =>
+                                                    <li>
+                                                        <a onClick={() => changeLocale(languageTag)} className="p-navigation__dropdown-item">{labelBySupportedLanguageTag[languageTag]}</a>
+                                                    </li>
+                                                )}
+                                            </ul>
+                                        </>
+                                    ) : (<></>)}
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header >
             {/* Page title area  */}
             <Strip shallow includeCol={false} element="section" type="suru-topped" rowClassName="u-vertically-center">
                 <Col size={8}>
-                    <b>{msg("loginTitleHtml", realm.displayName)}</b>
                     {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
                         <h2 id="kc-page-title">{headerNode}</h2>
                     ) : (
@@ -94,7 +109,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
             <Strip includeCol={false} element="section" rowClassName="u-vertically-center">
                 <Col size={8}>
-                {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
+                    {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
                         displayRequiredFields ? (
                             <div className={clsx(props.kcContentWrapperClass)}>
                                 <div className={clsx(props.kcLabelWrapperClass, "subtitle")}>
@@ -198,6 +213,6 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     )}
                 </Col>
             </Strip>
-        </div>
+        </div >
     );
 }
