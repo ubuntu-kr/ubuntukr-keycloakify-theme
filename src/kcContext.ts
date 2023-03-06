@@ -19,6 +19,7 @@ export const { kcContext } = getKcContext<
 	// Uncomment to test the login page for development.
 	// mockPageId: "register-user-profile.ftl",
 	mockPageId: "register.ftl",
+	// mockPageId: "login-reset-password.ftl",
 	// mockPageId: "login.ftl",
 	mockData: [
 		{

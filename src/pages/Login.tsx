@@ -4,7 +4,6 @@ import { useState, type FormEventHandler } from "react";
 // For example, the following import:  
 // import { clsx } from "./tools/clsx";
 // becomes:  
-import { clsx } from "keycloakify/lib/tools/clsx";
 import { useConstCallback } from "keycloakify/lib/tools/useConstCallback";
 import type { PageProps } from "keycloakify/lib/KcProps";
 // Here use your own KcContext and I18n that you might have overloaded.  
@@ -43,7 +42,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 			displayWide={realm.password && social.providers !== undefined}
 			headerNode={msg("doLogIn")}
 			formNode={
-				<div id="kc-form" className={clsx(realm.password && social.providers !== undefined && kcProps.kcContentWrapperClass)}>
+				<div id="kc-form">
 					<div id="kc-form-wrapper">
 						{realm.password && (
 							<Form id="kc-form-login" onSubmit={onSubmit} action={url.loginAction} method="post">
@@ -144,7 +143,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 				realm.registrationAllowed &&
 				!registrationDisabled && (
 					<div id="kc-registration">
-						<Button small dense element="a" href={url.registrationUrl} appearance="base">
+						<Button element="a" href={url.registrationUrl} appearance="base">
 							{msg("noAccount")} - {msg("doRegister")}
 						</Button>
 					</div>
