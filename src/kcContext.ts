@@ -9,18 +9,19 @@ export const { kcContext } = getKcContext<
 	// NOTE: A 'keycloakify' field must be added 
 	// in the package.json to generate theses extra pages
 	// https://docs.keycloakify.dev/build-options#keycloakify.extrapages
-	| { pageId: "my-extra-page-1.ftl"; }
-	| { pageId: "my-extra-page-2.ftl"; someCustomValue: string; }
+	// | { pageId: "my-extra-page-1.ftl"; }
+	// | { pageId: "my-extra-page-2.ftl"; someCustomValue: string; }
 	// NOTE: register.ftl is deprecated in favor of register-user-profile.ftl
 	// but let's say we use it anyway and have this plugin enabled: https://github.com/micedre/keycloak-mail-whitelisting
 	// keycloak-mail-whitelisting define the non standard ftl global authorizedMailDomains, we declare it here.
 	| { pageId: "register.ftl"; authorizedMailDomains: string[]; }
 >({
 	// Uncomment to test the login page for development.
-	mockPageId: "register-user-profile.ftl",
+	// mockPageId: "register-user-profile.ftl",
 	// mockPageId: "register.ftl",
 	// mockPageId: "login-reset-password.ftl",
 	// mockPageId: "login.ftl",
+	mockPageId: "terms.ftl",
 	mockData: [
 		{
 			pageId: "login.ftl",
@@ -65,10 +66,10 @@ export const { kcContext } = getKcContext<
 				]
 			}
 		},
-		{
-			pageId: "my-extra-page-2.ftl",
-			someCustomValue: "foo bar baz"
-		},
+		// {
+		// 	pageId: "my-extra-page-2.ftl",
+		// 	someCustomValue: "foo bar baz"
+		// },
 		{
 			//NOTE: You will either use register.ftl (legacy) or register-user-profile.ftl, not both
 			pageId: "register-user-profile.ftl",

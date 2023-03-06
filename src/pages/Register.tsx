@@ -6,7 +6,7 @@
 import type { PageProps } from "keycloakify/lib/KcProps";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
-import { Navigation, Theme, ICONS, Icon, Button, Form, Input } from "@canonical/react-components";
+import { Button, Form, Input } from "@canonical/react-components";
 
 
 export default function Register(props: PageProps<Extract<KcContext, { pageId: "register.ftl"; }>, I18n>) {

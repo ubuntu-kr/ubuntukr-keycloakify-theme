@@ -7,7 +7,7 @@ export default function MyExtraPage1(props: PageProps<Extract<KcContext, { pageI
     const { kcContext, i18n, doFetchDefaultThemeResources = true, Template, ...kcProps } = props;
 
     // someCustomValue is declared by you in ../kcContext.ts
-    console.log(`TODO: Do something with: ${kcContext.someCustomValue}`);
+    // console.log(`TODO: Do something with: ${kcContext.someCustomValue}`);
 
     return (
         <Template

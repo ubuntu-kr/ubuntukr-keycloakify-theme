@@ -5,15 +5,15 @@
  * in the KcApp.tsx
  * Example: https://github.com/garronej/keycloakify-starter/blob/a20c21b2aae7c6dc6dbea294f3d321955ddf9355/src/KcApp/KcApp.tsx#L14-L30
  */
-import { clsx } from "keycloakify/lib/tools/clsx";
 import { useRerenderOnStateChange } from "evt/hooks";
 import { Markdown } from "keycloakify/lib/tools/Markdown";
 import { evtTermMarkdown, useDownloadTerms } from "keycloakify/lib/pages/Terms";
-import tos_en_url from "../assets/tos_en.md";
-import tos_fr_url from "../assets/tos_fr.md";
+import tos_doc_url from "../assets/terms_of_service.md";
+
 import type { PageProps } from "keycloakify/lib/KcProps";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
+import { Button, Form } from "@canonical/react-components";
 
 export default function Terms(props: PageProps<Extract<KcContext, { pageId: "terms.ftl"; }>, I18n>) {
 	const { kcContext, i18n, doFetchDefaultThemeResources = true, Template, ...kcProps } = props;
@@ -26,8 +26,7 @@ export default function Terms(props: PageProps<Extract<KcContext, { pageId: "ter
 
 			const markdownString = await fetch((() => {
 				switch (currentLanguageTag) {
-					case "fr": return tos_fr_url;
-					default: return tos_en_url;
+					default: return tos_doc_url;
 				}
 			})()).then(response => response.text());
 
@@ -51,28 +50,22 @@ export default function Terms(props: PageProps<Extract<KcContext, { pageId: "ter
 			formNode={
 				<>
 					<div id="kc-terms-text">{evtTermMarkdown.state && <Markdown>{evtTermMarkdown.state}</Markdown>}</div>
-					<form className="form-actions" action={url.loginAction} method="POST">
-						<input
-							className={clsx(
-								kcProps.kcButtonClass,
-								kcProps.kcButtonClass,
-								kcProps.kcButtonClass,
-								kcProps.kcButtonPrimaryClass,
-								kcProps.kcButtonLargeClass
-							)}
-							name="accept"
+					<Form action={url.loginAction} method="POST">
+						<Button element={'input'}
+                            name="accept"
 							id="kc-accept"
 							type="submit"
 							value={msgStr("doAccept")}
-						/>
-						<input
-							className={clsx(kcProps.kcButtonClass, kcProps.kcButtonDefaultClass, kcProps.kcButtonLargeClass)}
-							name="cancel"
-							id="kc-decline"
-							type="submit"
-							value={msgStr("doDecline")}
-						/>
-					</form>
+                            appearance="positive"
+                        />
+						<Button element={'input'}
+                          name="cancel"
+						  id="kc-decline"
+						  type="submit"
+						  value={msgStr("doDecline")}
+                            appearance="negative"
+                        />
+					</Form>
 					<div className="clearfix" />
 				</>
 			}
