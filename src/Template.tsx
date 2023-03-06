@@ -74,25 +74,24 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                 <a className="p-navigation__link" href="https://ubuntu-kr.org">ubuntu-kr.org</a>
                             </li>
                         </ul>
-                        <ul className="p-navigation__items">
-                            <li className={`p-navigation__item--dropdown-toggle ${isLangSelectorHidden ? "" : "is-active"}`} id="link-4">
-                                {(realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1) ?
-                                    (
-                                        <>
-                                            <a className="p-navigation__link" aria-controls="account-menu" onClick={() => toggleLangSelector(!isLangSelectorHidden)}>
-                                                {labelBySupportedLanguageTag[currentLanguageTag]}
-                                            </a>
-                                            <ul className="p-navigation__dropdown--right" id="account-menu" aria-hidden={isLangSelectorHidden}>
-                                                {locale.supported.map(({ languageTag }) =>
-                                                    <li>
-                                                        <a onClick={() => changeLocale(languageTag)} className="p-navigation__dropdown-item">{labelBySupportedLanguageTag[languageTag]}</a>
-                                                    </li>
-                                                )}
-                                            </ul>
-                                        </>
-                                    ) : (<></>)}
-                            </li>
-                        </ul>
+
+                        {(realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1) ?
+                            (
+                                <ul className="p-navigation__items">
+                                    <li className={`p-navigation__item--dropdown-toggle ${isLangSelectorHidden ? "" : "is-active"}`} id="link-4">
+                                        <a className="p-navigation__link" aria-controls="account-menu" onClick={() => toggleLangSelector(!isLangSelectorHidden)}>
+                                            {labelBySupportedLanguageTag[currentLanguageTag]}
+                                        </a>
+                                        <ul className="p-navigation__dropdown--right" id="account-menu" aria-hidden={isLangSelectorHidden}>
+                                            {locale.supported.map(({ languageTag }) =>
+                                                <li>
+                                                    <a onClick={() => changeLocale(languageTag)} className="p-navigation__dropdown-item">{labelBySupportedLanguageTag[languageTag]}</a>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            ) : (<></>)}
                     </nav>
                 </div>
             </header >
