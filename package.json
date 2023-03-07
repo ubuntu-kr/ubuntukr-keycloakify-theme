@@ -1,11 +1,11 @@
 {
-    "name": "keycloakify-starter",
-    "homepage": "https://starter.keycloakify.dev",
+    "name": "ubuntukr-keycloakify-theme",
+    "homepage": "https://github.com/ubuntu-kr/ubuntukr-keycloakify-theme",
     "version": "3.0.0",
-    "description": "A starter/demo project for keycloakify",
+    "description": "Keycloak theme for Ubuntu Korea",
     "repository": {
         "type": "git",
-        "url": "git://github.com/codegouvfr/keycloakify-starter.git"
+        "url": "git://github.com/ubuntu-kr/ubuntukr-keycloakify-theme.git"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -15,6 +15,8 @@
         "build-css": "sass -w --load-path=node_modules src:dist --style=compressed"
     },
     "keycloakify": {
+        "groupId": "org.ubuntu-kr.keycloak",
+        "artifactId": "theme",
         "extraPages": [
             "my-extra-page-1.ftl",
             "my-extra-page-2.ftl"
