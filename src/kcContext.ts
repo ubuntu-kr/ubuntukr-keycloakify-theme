@@ -20,8 +20,8 @@ export const { kcContext } = getKcContext<
 	// mockPageId: "register-user-profile.ftl",
 	// mockPageId: "register.ftl",
 	// mockPageId: "login-reset-password.ftl",
-	mockPageId: "login.ftl",
-	// mockPageId: "terms.ftl",
+	// mockPageId: "login.ftl",
+	mockPageId: "terms.ftl",
 	mockData: [
 		{
 			pageId: "login.ftl",
@@ -125,6 +125,20 @@ export const { kcContext } = getKcContext<
 				exists: (fieldName: string) => fieldName === "email"
 			},
 			
+		},
+		{
+			pageId: "login-reset-password.ftl",
+			locale: {
+				//When we test the login page we do it in french
+				currentLanguageTag: "ko",
+			},
+		},
+		{
+			pageId: "terms.ftl",
+			locale: {
+				//When we test the login page we do it in french
+				currentLanguageTag: "ko",
+			},
 		}
 	]
 });
