@@ -17,7 +17,7 @@ export function useI18n(props: Props) {
                 "alphanumericalCharsOnly": "로마자와 숫자만 가능",
                 "gender": "성별",
                 "doLogIn": "로그인",
-                "doForgotPassword": "암호 분실",
+                "doForgotPassword": "암호를 잊어버렸습니다",
                 "usernameOrEmail": "사용자명 또는 이메일",
                 "username": "사용자명",
                 "email": "이메일",
@@ -29,7 +29,9 @@ export function useI18n(props: Props) {
                 "doRegister": "회원가입",
                 "firstName": "이름",
                 "lastName": "성",
-                "backToLogin": "« 로그인 화면으로 돌아가기"
+                "backToLogin": "« 로그인 화면으로 돌아가기",
+                "emailForgotTitle": "암호를 잊어버리셨습니까?",
+                "doSubmit":"제출"
             }
         },
     });
