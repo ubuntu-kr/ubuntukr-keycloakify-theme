@@ -18,6 +18,7 @@ const Register = lazy(() => import("./pages/Register"));
 const RegisterUserProfile = lazy(() => import("./pages/RegisterUserProfile"));
 const Terms = lazy(() => import("./pages/Terms"));
 const LoginOtp = lazy(() => import("./pages/LoginOtp"));
+const LoginConfigOtp = lazy(() => import("./pages/LoginConfigTotp"));
 const MyExtraPage1 = lazy(() => import("./pages/MyExtraPage1"));
 const MyExtraPage2 = lazy(() => import("./pages/MyExtraPage2"));
 const Info = lazy(() => import("keycloakify/lib/pages/Info"));
@@ -88,6 +89,7 @@ export default function App(props: { kcContext: KcContext; }) {
                     case "terms.ftl": return <Terms {...{ kcContext, ...pageProps }} />;
                     case "login-reset-password.ftl": return <LoginResetPassword {...{ kcContext, ...pageProps }} />;
                     case "login-otp.ftl": return <LoginOtp {...{ kcContext, ...pageProps }} />;
+                    case "login-config-totp.ftl": return <LoginConfigOtp {...{ kcContext, ...pageProps }} />;
                     // case "my-extra-page-1.ftl": return <MyExtraPage1 {...{ kcContext, ...pageProps }} />;
                     // case "my-extra-page-2.ftl": return <MyExtraPage2 {...{ kcContext, ...pageProps }} />;
                     // We choose to use the default Template for the Info page and to download the theme resources.
