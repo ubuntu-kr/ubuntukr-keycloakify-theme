@@ -16,7 +16,8 @@
     },
     "keycloakify": {
         "groupId": "org.ubuntu-kr.keycloak",
-        "artifactId": "theme",
+        "artifactId": "ubuntukr-theme",
+        "extraThemeProperties": ["locales=en,ko"],
         "extraPages": [
             "my-extra-page-1.ftl",
             "my-extra-page-2.ftl"

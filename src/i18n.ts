@@ -22,9 +22,14 @@ export function useI18n(props: Props) {
                 "username": "사용자명",
                 "email": "이메일",
                 "password":"암호",
+                "passwordConfirm": "암호 확인",
                 "rememberMe": "로그인 유지",
                 "noAccount": "신규 사용자 입니까?",
-                "doRegister": "회원가입"
+                "registerTitle": "회원가입",
+                "doRegister": "회원가입",
+                "firstName": "이름",
+                "lastName": "성",
+                "backToLogin": "« 로그인 화면으로 돌아가기"
             }
         },
     });
