@@ -4,6 +4,8 @@ type Props = Omit<Parameters<typeof useI18nBase>[0], "extraMessages">;
 
 export function useI18n(props: Props) {
     const { kcContext } = props;
+
+    
     return useI18nBase({
         kcContext,
         // NOTE: Here you can override the default i18n messages
@@ -11,20 +13,19 @@ export function useI18n(props: Props) {
         // defined in the Keycloak admin UI for UserProfile
         // https://user-images.githubusercontent.com/6702424/182050652-522b6fe6-8ee5-49df-aca3-dba2d33f24a5.png
         "extraMessages": {
-            "en": {
-                "alphanumericalCharsOnly": "Only alphanumerical characters",
-                "gender": "Gender",
-                // Here we overwrite the default english value for the message "doForgotPassword" 
-                // that is "Forgot Password?" see: https://github.com/InseeFrLab/keycloakify/blob/f0ae5ea908e0aa42391af323b6d5e2fd371af851/src/lib/i18n/generated_messages/18.0.1/login/en.ts#L17
-                "doForgotPassword": "I forgot my password",
-            },
-            "fr": {
-                /* spell-checker: disable */
-                "alphanumericalCharsOnly": "Caractère alphanumérique uniquement",
-                "gender": "Genre",
-                "doForgotPassword": "J'ai oublié mon mot de passe"
-                /* spell-checker: enable */
-            },
+            "ko": {
+                "alphanumericalCharsOnly": "로마자와 숫자만 가능",
+                "gender": "성별",
+                "doLogIn": "로그인",
+                "doForgotPassword": "암호 분실",
+                "usernameOrEmail": "사용자명 또는 이메일",
+                "username": "사용자명",
+                "email": "이메일",
+                "password":"암호",
+                "rememberMe": "로그인 유지",
+                "noAccount": "신규 사용자 입니까?",
+                "doRegister": "회원가입"
+            }
         },
     });
 }

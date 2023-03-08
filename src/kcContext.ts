@@ -20,14 +20,14 @@ export const { kcContext } = getKcContext<
 	// mockPageId: "register-user-profile.ftl",
 	// mockPageId: "register.ftl",
 	// mockPageId: "login-reset-password.ftl",
-	// mockPageId: "login.ftl",
-	mockPageId: "terms.ftl",
+	mockPageId: "login.ftl",
+	// mockPageId: "terms.ftl",
 	mockData: [
 		{
 			pageId: "login.ftl",
 			locale: {
 				//When we test the login page we do it in french
-				currentLanguageTag: "en",
+				currentLanguageTag: "ko",
 			},
 			//Uncomment the following line for hiding the Alert message
 			//"message": undefined

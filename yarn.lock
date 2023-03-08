@@ -8690,29 +8690,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keycloakify-starter@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "keycloakify-starter@workspace:."
-  dependencies:
-    "@canonical/react-components": ^0.38.0
-    "@types/node": ^15.3.1
-    "@types/react": 18.0.9
-    "@types/react-dom": 18.0.4
-    evt: ^2.4.15
-    jwt-decode: ^3.1.2
-    keycloak-js: ^21.0.1
-    keycloakify: ^6.12.4
-    powerhooks: ^0.26.2
-    react: 18.1.0
-    react-dom: 18.1.0
-    react-scripts: 5.0.0
-    sass: ^1.58.3
-    tsafe: ^1.4.3
-    typescript: ~4.8.0
-    vanilla-framework: ^3.11.1
-  languageName: unknown
-  linkType: soft
-
 "keycloakify@npm:^6.12.4":
   version: 6.12.4
   resolution: "keycloakify@npm:6.12.4"
@@ -12969,6 +12946,29 @@ __metadata:
   checksum: 301459fc3eb3b1a38fe91bf96d98eb55da88a9cb17b4ef80b4d105d620f4d547ba776cc27b44cc2ef58b66eda23fe0a74142feb5e79a6fb99f54fc018a696afa
   languageName: node
   linkType: hard
+
+"ubuntukr-keycloakify-theme@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "ubuntukr-keycloakify-theme@workspace:."
+  dependencies:
+    "@canonical/react-components": ^0.38.0
+    "@types/node": ^15.3.1
+    "@types/react": 18.0.9
+    "@types/react-dom": 18.0.4
+    evt: ^2.4.15
+    jwt-decode: ^3.1.2
+    keycloak-js: ^21.0.1
+    keycloakify: ^6.12.4
+    powerhooks: ^0.26.2
+    react: 18.1.0
+    react-dom: 18.1.0
+    react-scripts: 5.0.0
+    sass: ^1.58.3
+    tsafe: ^1.4.3
+    typescript: ~4.8.0
+    vanilla-framework: ^3.11.1
+  languageName: unknown
+  linkType: soft
 
 "unbox-primitive@npm:^1.0.2":
   version: 1.0.2
