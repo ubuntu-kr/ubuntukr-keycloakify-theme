@@ -31,9 +31,10 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                             <h3 className="p-stepped-list__title">{msg("loginTotpStep1")}</h3>
 
                             <ul id="kc-totp-supported-apps" className="p-stepped-list__content">
-                                {totp.policy.supportedApplications.map(app => (
+                                {(totp.policy.supportedApplications != null) ? totp.policy.supportedApplications.map(app => (
                                     <li>{app}</li>
-                                ))}
+                                )) : (<></>)}
+
                             </ul>
                         </li>
 
@@ -127,7 +128,7 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                                         name="cancel-aia"
                                         value="true"
                                         appearance="negative">
-                                        ${msg("doCancel")}
+                                        {msg("doCancel")}
                                     </Button>
 
                                 </>
