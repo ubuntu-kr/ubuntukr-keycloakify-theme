@@ -17,7 +17,9 @@
     "keycloakify": {
         "groupId": "org.ubuntu-kr.keycloak",
         "artifactId": "ubuntukr-theme",
-        "extraThemeProperties": ["locales=en,ko"],
+        "extraThemeProperties": [
+            "locales=en,ko"
+        ],
         "extraPages": [
             "my-extra-page-1.ftl",
             "my-extra-page-2.ftl"
@@ -29,13 +31,10 @@
     "dependencies": {
         "@canonical/react-components": "^0.38.0",
         "evt": "^2.4.15",
-        "jwt-decode": "^3.1.2",
-        "keycloak-js": "^21.0.1",
-        "keycloakify": "^6.12.4",
+        "keycloakify": "^6.12.8",
         "powerhooks": "^0.26.2",
         "react": "18.1.0",
         "react-dom": "18.1.0",
-        "tsafe": "^1.4.3",
         "vanilla-framework": "^3.11.1"
     },
     "devDependencies": {
