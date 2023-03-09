@@ -64,7 +64,7 @@ export function useI18n(props: Props) {
                 "loginTotpStep2": "앱을 열고 아래 바코드를 스캔 하십사오.",
                 "loginTotpUnableToScan": "스캔하실 수 없습니까?",
                 "loginTotpStep3": "앱에서 제공하는 일회용 코드를 입력하고, 제출을 클릭하여 설정을 완료하십시오.",
-                "loginTotpStep3DeviceName": "OTP 장치를 더 쉽게 관리하기 이해, 장치 이름도 입력 해 주시기 바랍니다.",
+                "loginTotpStep3DeviceName": "OTP 장치를 더 쉽게 관리하기 위해, 장치 이름도 입력 해 주시기 바랍니다.",
                 "authenticatorCode": "일회용 코드",
                 "loginTotpDeviceName": "장치 이름"
             }
