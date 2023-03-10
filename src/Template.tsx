@@ -10,7 +10,7 @@ import type { TemplateProps } from "keycloakify/lib/KcProps";
 import { usePrepareTemplate } from "keycloakify/lib/Template";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
-import { Navigation, Theme, Strip, Col, Notification, Form, Input } from "@canonical/react-components";
+import { Navigation, Tooltip, Strip, Col, Notification, Button, Input } from "@canonical/react-components";
 import { useState } from "react";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
@@ -108,6 +108,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
             <Strip includeCol={false} element="section" rowClassName="u-vertically-center">
                 <Col size={8}>
+
                     {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
                         displayRequiredFields ? (
                             <div className={clsx(props.kcContentWrapperClass)}>
@@ -127,31 +128,21 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                     <span className="required">*</span> {msg("requiredFields")}
                                 </span>
                             </div>
-                            <div className="col-md-10">
-                                <div className={clsx(props.kcFormGroupClass)}>
-                                    <div id="kc-username">
-                                        <label id="kc-attempted-username">{auth?.attemptedUsername}</label>
-                                        <a id="reset-login" href={url.loginRestartFlowUrl}>
-                                            <div className="kc-login-tooltip">
-                                                <i className={clsx(props.kcResetFlowIcon)}></i>
-                                                <span className="kc-tooltip-text">{msg("restartLoginTooltip")}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
+                            <div id="kc-username">
+                                <Button appearance="base"><i className="p-icon--user"></i> <span id="kc-attempted-username">{auth?.attemptedUsername}</span></Button>
+                                <Tooltip message={msg("restartLoginTooltip")}>
+                                    <Button appearance="base" element="a" id="reset-login" href={url.loginRestartFlowUrl}><i className="p-icon--close"></i></Button>
+                                </Tooltip>
                             </div>
                         </div>
                     ) : (
                         <>
                             <div className={clsx(props.kcFormGroupClass)}>
                                 <div id="kc-username">
-                                    <label id="kc-attempted-username">{auth?.attemptedUsername}</label>
-                                    <a id="reset-login" href={url.loginRestartFlowUrl}>
-                                        <div className="kc-login-tooltip">
-                                            <i className={clsx(props.kcResetFlowIcon)}></i>
-                                            <span className="kc-tooltip-text">{msg("restartLoginTooltip")}</span>
-                                        </div>
-                                    </a>
+                                    <Button appearance="base"><i className="p-icon--user"></i> <span id="kc-attempted-username">{auth?.attemptedUsername}</span></Button>
+                                    <Tooltip message={msg("restartLoginTooltip")}>
+                                        <Button appearance="base" element="a" id="reset-login" href={url.loginRestartFlowUrl}><i className="p-icon--close"></i></Button>
+                                    </Tooltip>
                                 </div>
                             </div>
                         </>
