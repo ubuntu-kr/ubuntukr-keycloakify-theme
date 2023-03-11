@@ -66,7 +66,22 @@ export function useI18n(props: Props) {
                 "loginTotpStep3": "앱에서 제공하는 일회용 코드를 입력하고, 제출을 클릭하여 설정을 완료하십시오.",
                 "loginTotpStep3DeviceName": "OTP 장치를 더 쉽게 관리하기 위해, 장치 이름도 입력 해 주시기 바랍니다.",
                 "authenticatorCode": "일회용 코드",
-                "loginTotpDeviceName": "장치 이름"
+                "loginTotpDeviceName": "장치 이름",
+                "loginTotpManualStep2":"앱을 열고 키를 입력하십시오:",
+                "loginTotpManualStep3": "앱에서 구성 값 변경이 가능한 경우, 다음 구성 값을 이용하십시오:",
+                "loginTotpScanBarcode": "바코드를 스캔하시겠습니까?",
+                "loginTotpType": "유형",
+                "loginTotpAlgorithm": "알고리즘",
+                "loginTotpDigits": "숫자",
+                "loginTotpInterval": "간격",
+                "loginTotpCounter": "카운터",
+
+                "backToApplication": "« 앱으로 돌아가기",
+                "errorTitle": "죄송합니다...",
+                "errorTitleHtml": "<strong>죄송합니다</strong>...",
+
+                "loginIdpReviewProfileTitle": "계정 정보 업데이트",
+
             }
         },
     });
