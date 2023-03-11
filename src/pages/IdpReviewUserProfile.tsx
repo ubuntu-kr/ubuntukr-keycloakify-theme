@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { clsx } from "keycloakify/lib/tools/clsx";
 import { UserProfileFormFields } from "./UserProfileCommons";
 import type { PageProps } from "keycloakify/lib/KcProps";
 import type { KcContext } from "../kcContext";
@@ -24,7 +23,7 @@ export default function IdpReviewUserProfile(props: PageProps<Extract<KcContext,
                     <fieldset>
                         <UserProfileFormFields kcContext={kcContext} onIsFormSubmittableValueChange={setIsFomSubmittable} i18n={i18n} {...kcProps} />
 
-                        <div className={clsx(kcProps.kcFormGroupClass)}>
+                        <div>
                             <div id="kc-form-options">
                                 <div />
                             </div>
