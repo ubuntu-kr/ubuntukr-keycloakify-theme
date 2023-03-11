@@ -1,5 +1,4 @@
 import React from "react";
-import { clsx } from "keycloakify/lib/tools/clsx";
 import type { PageProps } from "keycloakify/lib/KcProps";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";

@@ -25,6 +25,7 @@ const Error = lazy(() => import("./pages/Error"));
 const LoginIdpLinkEmail = lazy(() => import("./pages/LoginIdpLinkEmail"));
 const LoginIdpLinkConfirm = lazy(() => import("./pages/LoginIdpLinkConfirm"));
 const IdpReviewUserProfile = lazy(() => import("./pages/IdpReviewUserProfile"));
+const LogoutConfirm = lazy(() => import("./pages/LogoutConfirm"));
 const MyExtraPage1 = lazy(() => import("./pages/MyExtraPage1"));
 const MyExtraPage2 = lazy(() => import("./pages/MyExtraPage2"));
 const Info = lazy(() => import("keycloakify/lib/pages/Info"));
@@ -101,6 +102,7 @@ export default function App(props: { kcContext: KcContext; }) {
                     case "login-idp-link-email.ftl": return <LoginIdpLinkEmail {...{ kcContext, ...pageProps }} />;
                     case "login-idp-link-confirm.ftl": return <LoginIdpLinkConfirm {...{ kcContext, ...pageProps }} />;
                     case "idp-review-user-profile.ftl": return <IdpReviewUserProfile {...{ kcContext, ...pageProps }} />;
+                    case "logout-confirm.ftl": return <LogoutConfirm {...{ kcContext, ...pageProps }} />;
                     // case "my-extra-page-1.ftl": return <MyExtraPage1 {...{ kcContext, ...pageProps }} />;
                     // case "my-extra-page-2.ftl": return <MyExtraPage2 {...{ kcContext, ...pageProps }} />;
                     // We choose to use the default Template for the Info page and to download the theme resources.
