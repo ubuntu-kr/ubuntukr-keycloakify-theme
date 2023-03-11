@@ -8,7 +8,8 @@
 import { useRerenderOnStateChange } from "evt/hooks";
 import { Markdown } from "keycloakify/lib/tools/Markdown";
 import { evtTermMarkdown, useDownloadTerms } from "keycloakify/lib/pages/Terms";
-import tos_doc_url from "../assets/terms_of_service.md";
+import tos_en_url from "../assets/tos_en.md";
+import tos_ko_url from "../assets/tos_ko.md";
 
 import type { PageProps } from "keycloakify/lib/KcProps";
 import type { KcContext } from "../kcContext";
@@ -26,7 +27,8 @@ export default function Terms(props: PageProps<Extract<KcContext, { pageId: "ter
 
 			const markdownString = await fetch((() => {
 				switch (currentLanguageTag) {
-					default: return tos_doc_url;
+					case "ko": return tos_ko_url;
+					default: return tos_en_url;
 				}
 			})()).then(response => response.text());
 

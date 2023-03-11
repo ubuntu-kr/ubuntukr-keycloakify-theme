@@ -21,9 +21,9 @@ export const { kcContext } = getKcContext<
 	// mockPageId: "register.ftl",
 	// mockPageId: "login-reset-password.ftl",
 	// mockPageId: "login.ftl",
-	mockPageId: "login-otp.ftl",
+	// mockPageId: "login-otp.ftl",
 	// mockPageId: "login-config-totp.ftl",
-	// mockPageId: "terms.ftl",
+	mockPageId: "terms.ftl",
 	mockData: [
 		{
 			pageId: "login.ftl",

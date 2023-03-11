@@ -6,7 +6,9 @@ import { useI18n } from "./i18n";
 import Fallback, { defaultKcProps, type KcProps, type PageProps, useDownloadTerms } from "keycloakify";
 import Template from "./Template";
 import DefaultTemplate from "keycloakify/lib/Template";
-import tos_doc_url from "./assets/terms_of_service.md";
+import tos_en_url from "./assets/tos_en.md";
+import tos_ko_url from "./assets/tos_ko.md";
+
 // import { foo, bar } from "./valuesTransferredOverUrl";
 
 // console.log(`Values passed by the main app in the URL parameter:`, { foo, bar });
@@ -45,7 +47,8 @@ export default function App(props: { kcContext: KcContext; }) {
 
             const markdownString = await fetch((() => {
                 switch (currentLanguageTag) {
-                    default: return tos_doc_url;
+                    case "ko": return tos_ko_url;
+                    default: return tos_en_url;
                 }
             })()).then(response => response.text());
 
