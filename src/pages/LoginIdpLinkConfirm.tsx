@@ -18,22 +18,20 @@ export default function LoginIdpLinkConfirm(props: PageProps<Extract<KcContext, 
             headerNode={msg("confirmLinkIdpTitle")}
             formNode={
                 <form id="kc-register-form" action={url.loginAction} method="post">
-                    <div className={clsx(kcProps.kcFormGroupClass)}>
-                        <Button element={'button'}
-                            type="submit"
-                            name="submitAction"
-                            id="updateProfile"
-                            value="updateProfile">
-                            {msg("confirmLinkIdpReviewProfile")}
-                        </Button>
-                        <Button element={'button'}
-                            type="submit"
-                            name="submitAction"
-                            id="linkAccount"
-                            value="linkAccount">
-                            {msg("confirmLinkIdpContinue", idpAlias)}
-                        </Button>
-                    </div>
+                    <Button element={'button'}
+                        type="submit"
+                        name="submitAction"
+                        id="updateProfile"
+                        value="updateProfile">
+                        {msg("confirmLinkIdpReviewProfile")}
+                    </Button>
+                    <Button element={'button'}
+                        type="submit"
+                        name="submitAction"
+                        id="linkAccount"
+                        value="linkAccount">
+                        {msg("confirmLinkIdpContinue", idpAlias)}
+                    </Button>
                 </form>
             }
         />
