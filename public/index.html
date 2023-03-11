@@ -16,51 +16,91 @@
   -->
   <title>React App</title>
 
-  <link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-bold-webfont.woff2" as="font" crossorigin="anonymous">
-  <link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-medium-webfont.woff2" as="font" crossorigin="anonymous">
-  <link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-regular-webfont.woff2" as="font" crossorigin="anonymous">
-  <link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-semibold-webfont.woff2" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-B.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-BI.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-L.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-LI.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-M.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-MI.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-R.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-RI.ttf" as="font" crossorigin="anonymous">
+  <link rel="preload" href="%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-Th.ttf" as="font" crossorigin="anonymous">
+
   <!-- 
   	We need to put it plain in the html because of Keycloakify, in case we decide to remove --external-assets 
   	SEE: https://github.com/InseeFrLab/keycloakify#font-face-importing-fonts-from-thesrc-dir 
   -->
   <style>
-    /* latin */
     @font-face {
-    	font-family: 'Work Sans';
-    	font-style: normal;
-    	font-weight: normal;
-    	/*400*/
-    	font-display: swap;
-    	src: url("%PUBLIC_URL%/fonts/WorkSans/worksans-regular-webfont.woff2") format("woff2");
+      font-family: "Ubuntu";
+      font-style: normal;
+      font-weight: bold;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-B.ttf") format("truetype");
     }
-  
-    /* latin */
+
     @font-face {
-    	font-family: 'Work Sans';
-    	font-style: normal;
-    	font-weight: 500;
-    	font-display: swap;
-    	src: url("%PUBLIC_URL%/fonts/WorkSans/worksans-medium-webfont.woff2") format("woff2");
+      font-family: "Ubuntu";
+      font-style: italic;
+      font-weight: bold;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-BI.ttf") format("truetype");
     }
-  
-    /* latin */
+
     @font-face {
-    	font-family: 'Work Sans';
-    	font-style: normal;
-    	font-weight: 600;
-    	font-display: swap;
-    	src: url("%PUBLIC_URL%/fonts/WorkSans/worksans-semibold-webfont.woff2") format("woff2");
+      font-family: "Ubuntu";
+      font-style: normal;
+      font-weight: lighter;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-L.ttf") format("truetype");
     }
-  
-    /* latin */
+
     @font-face {
-    	font-family: 'Work Sans';
-    	font-style: normal;
-    	font-weight: bold;
-    	/*700*/
-    	font-display: swap;
-    	src: url("%PUBLIC_URL%/fonts/WorkSans/worksans-bold-webfont.woff2") format("woff2");
+      font-family: "Ubuntu";
+      font-style: italic;
+      font-weight: lighter;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-LI.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Ubuntu";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-M.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Ubuntu";
+      font-style: italic;
+      font-weight: 500;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-MI.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Ubuntu";
+      font-style: normal;
+      font-weight: normal;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-R.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Ubuntu";
+      font-style: italic;
+      font-weight: normal;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-RI.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Ubuntu";
+      font-style: normal;
+      font-weight: 100;
+      font-display: swap;
+      src: url("%PUBLIC_URL%/fonts/Ubuntu/Ubuntu-Th.ttf") format("truetype");
     }
   </style>
 

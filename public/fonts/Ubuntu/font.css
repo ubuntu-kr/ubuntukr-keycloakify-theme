@@ -1,0 +1,79 @@
+/*
+<link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-bold-webfont.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-medium-webfont.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-regular-webfont.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/WorkSans/worksans-semibold-webfont.woff2" as="font" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/fonts/WorkSans/font.css">
+*/
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url("./Ubuntu-B.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: bold;
+  font-display: swap;
+  src: url("./Ubuntu-BI.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: lighter;
+  font-display: swap;
+  src: url("./Ubuntu-L.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: lighter;
+  font-display: swap;
+  src: url("./Ubuntu-LI.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./Ubuntu-M.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./Ubuntu-MI.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url("./Ubuntu-R.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: normal;
+  font-display: swap;
+  src: url("./Ubuntu-RI.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./Ubuntu-Th.ttf") format("truetype");
+}
