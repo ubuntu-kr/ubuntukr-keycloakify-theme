@@ -1,35 +1,30 @@
 import React, { useEffect, Fragment } from "react";
-import { useCallbackFactory } from "keycloakify/lib/tools/useCallbackFactory";
-import { useFormValidationSlice } from "keycloakify/lib/useFormValidationSlice";
-import type { KcProps } from "keycloakify/lib/KcProps";
-import type { Attribute } from "keycloakify/lib/getKcContext";
-import type { I18nBase } from "keycloakify/lib/i18n";
+import { useFormValidation } from "keycloakify/login/lib/useFormValidation";
+import type { ClassKey } from "keycloakify/login/TemplateProps";
+import type { Attribute } from "keycloakify/login/kcContext/KcContext";
+import type { I18n } from "keycloakify/login/i18n";
 import { Select, Input } from "@canonical/react-components";
 
 
 export type UserProfileFormFieldsProps = {
-    kcContext: Parameters<typeof useFormValidationSlice>[0]["kcContext"];
-    i18n: I18nBase;
-} & KcProps &
-    Partial<Record<"BeforeField" | "AfterField", (props: { attribute: Attribute }) => JSX.Element | null>> & {
-        onIsFormSubmittableValueChange: (isFormSubmittable: boolean) => void;
-    };
+    kcContext: Parameters<typeof useFormValidation>[0]["kcContext"];
+    i18n: I18n;
+    getClassName: (classKey: ClassKey) => string;
+    onIsFormSubmittableValueChange: (isFormSubmittable: boolean) => void;
+    BeforeField?: (props: { attribute: Attribute }) => JSX.Element | null;
+    AfterField?: (props: { attribute: Attribute }) => JSX.Element | null;
+};
 
-export function UserProfileFormFields({
-    kcContext,
-    onIsFormSubmittableValueChange,
-    i18n,
-    BeforeField,
-    AfterField,
-    ...props
-}: UserProfileFormFieldsProps) {
+export function UserProfileFormFields(props: UserProfileFormFieldsProps) {
+    const { kcContext, onIsFormSubmittableValueChange, i18n, getClassName, BeforeField, AfterField } = props;
+
     const { advancedMsg } = i18n;
 
     const {
         formValidationState: { fieldStateByAttributeName, isFormSubmittable },
-        formValidationReducer,
+        formValidationDispatch,
         attributesWithPassword
-    } = useFormValidationSlice({
+    } = useFormValidation({
         kcContext,
         i18n
     });
@@ -37,29 +32,6 @@ export function UserProfileFormFields({
     useEffect(() => {
         onIsFormSubmittableValueChange(isFormSubmittable);
     }, [isFormSubmittable]);
-
-    const onChangeFactory = useCallbackFactory(
-        (
-            [name]: [string],
-            [
-                {
-                    target: { value }
-                }
-            ]: [React.ChangeEvent<HTMLInputElement | HTMLSelectElement>]
-        ) =>
-            formValidationReducer({
-                "action": "update value",
-                name,
-                "newValue": value
-            })
-    );
-
-    const onBlurFactory = useCallbackFactory(([name]: [string]) =>
-        formValidationReducer({
-            "action": "focus lost",
-            name
-        })
-    );
 
     let currentGroup = "";
 
@@ -89,8 +61,19 @@ export function UserProfileFormFields({
                             if (options !== undefined) {
                                 return (
                                     <Select id={attribute.name} name={attribute.name} defaultValue=""
-                                        onChange={onChangeFactory(attribute.name)}
-                                        onBlur={onBlurFactory(attribute.name)}
+                                        onChange={event =>
+                                            formValidationDispatch({
+                                                "action": "update value",
+                                                "name": attribute.name,
+                                                "newValue": event.target.value
+                                            })
+                                        }
+                                        onBlur={() =>
+                                            formValidationDispatch({
+                                                "action": "focus lost",
+                                                "name": attribute.name
+                                            })
+                                        }
                                         value={value}
                                         options={options.options.map(option => {
                                             return {
@@ -118,11 +101,22 @@ export function UserProfileFormFields({
                                     id={attribute.name}
                                     name={attribute.name}
                                     value={value}
-                                    onChange={onChangeFactory(attribute.name)}
+                                    onChange={event =>
+                                        formValidationDispatch({
+                                            "action": "update value",
+                                            "name": attribute.name,
+                                            "newValue": event.target.value
+                                        })
+                                    }
+                                    onBlur={() =>
+                                        formValidationDispatch({
+                                            "action": "focus lost",
+                                            "name": attribute.name
+                                        })
+                                    }
                                     aria-invalid={displayableErrors.length !== 0}
                                     disabled={attribute.readOnly}
                                     autoComplete={attribute.autocomplete}
-                                    onBlur={onBlurFactory(attribute.name)}
                                     error={displayableErrors.length > 0 ? displayableErrors.map(({ errorMessage }) => errorMessage) : null}
                                 />
                             );

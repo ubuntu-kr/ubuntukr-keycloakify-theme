@@ -1,5 +1,4 @@
-import { getKcContext } from "keycloakify/lib/getKcContext";
-
+import { getKcContext } from "keycloakify/login";
 //NOTE: In most of the cases you do not need to overload the KcContext, you can 
 // just call getKcContext(...) without type arguments.  
 // You want to overload the KcContext only if:  

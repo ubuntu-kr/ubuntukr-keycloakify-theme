@@ -1,7 +1,7 @@
 {
     "name": "ubuntukr-keycloakify-theme",
     "homepage": "https://github.com/ubuntu-kr/ubuntukr-keycloakify-theme",
-    "version": "3.0.0",
+    "version": "0.0.4",
     "description": "Keycloak theme for Ubuntu Korea",
     "repository": {
         "type": "git",
@@ -31,8 +31,8 @@
     "dependencies": {
         "@canonical/react-components": "^0.38.0",
         "evt": "^2.4.15",
-        "keycloakify": "^6.12.8",
-        "powerhooks": "^0.26.2",
+        "keycloakify": "^7.0.3",
+        "powerhooks": "^0.26.7",
         "react": "18.1.0",
         "react-dom": "18.1.0",
         "vanilla-framework": "^3.11.1"

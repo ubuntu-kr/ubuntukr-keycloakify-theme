@@ -4,10 +4,11 @@
 // For example, the following import:  
 // import { assert } from "./tools/assert";
 // becomes:  
-import { assert } from "keycloakify/lib/tools/assert";
-import { clsx } from "keycloakify/lib/tools/clsx";
-import type { TemplateProps } from "keycloakify/lib/KcProps";
-import { usePrepareTemplate } from "keycloakify/lib/Template";
+import { assert } from "keycloakify/tools/assert";
+import { clsx } from "keycloakify/tools/clsx";
+import { usePrepareTemplate } from "keycloakify/lib/usePrepareTemplate";
+import { type TemplateProps } from "keycloakify/login/TemplateProps";
+import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
 import { Navigation, Tooltip, Strip, Col, Notification, Button, Input } from "@canonical/react-components";
@@ -22,28 +23,31 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
         showAnotherWayIfPresent = true,
         headerNode,
         showUsernameNode = null,
-        formNode,
         infoNode = null,
         kcContext,
         i18n,
-        doFetchDefaultThemeResources,
-        stylesCommon,
-        styles,
-        scripts,
-        kcHtmlClass
+        doUseDefaultCss,
+        classes,
+        children
     } = props;
+
+    const { getClassName } = useGetClassName({ doUseDefaultCss, classes });
 
     const { msg, changeLocale, labelBySupportedLanguageTag, currentLanguageTag } = i18n;
 
     const { realm, locale, auth, url, message, isAppInitiatedAction } = kcContext;
 
     const { isReady } = usePrepareTemplate({
-        doFetchDefaultThemeResources,
-        stylesCommon,
-        styles,
-        scripts,
+        "doFetchDefaultThemeResources": doUseDefaultCss,
         url,
-        kcHtmlClass
+        "stylesCommon": [
+            "node_modules/patternfly/dist/css/patternfly.min.css",
+            "node_modules/patternfly/dist/css/patternfly-additions.min.css",
+            "lib/zocial/zocial.css"
+        ],
+        "styles": ["css/login.css"],
+        "htmlClassName": getClassName("kcHtmlClass"),
+        "bodyClassName": undefined
     });
 
     const [isLangSelectorHidden, toggleLangSelector] = useState(true);
@@ -74,7 +78,6 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                 <a className="p-navigation__link" href="https://ubuntu-kr.org">ubuntu-kr.org</a>
                             </li>
                         </ul>
-
                         {(realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1) ?
                             (
                                 <ul className="p-navigation__items">
@@ -82,6 +85,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                         <a className="p-navigation__link" aria-controls="account-menu" onClick={() => toggleLangSelector(!isLangSelectorHidden)}>
                                             {labelBySupportedLanguageTag[currentLanguageTag]}
                                         </a>
+
                                         <ul className="p-navigation__dropdown--right" id="account-menu" aria-hidden={isLangSelectorHidden}>
                                             {locale.supported.map(({ languageTag }) =>
                                                 <li>
@@ -111,8 +115,8 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
                     {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
                         displayRequiredFields ? (
-                            <div className={clsx(props.kcContentWrapperClass)}>
-                                <div className={clsx(props.kcLabelWrapperClass, "subtitle")}>
+                            <div className={getClassName("kcContentWrapperClass")}>
+                                <div className={clsx(getClassName("kcLabelWrapperClass"), "subtitle")}>
                                     <span className="subtitle">
                                         <span className="required">*</span>
                                         {msg("requiredFields")}
@@ -122,8 +126,8 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         ) : (<></>
                         )
                     ) : displayRequiredFields ? (
-                        <div className={clsx(props.kcContentWrapperClass)}>
-                            <div className={clsx(props.kcLabelWrapperClass, "subtitle")}>
+                        <div className={getClassName("kcContentWrapperClass")}>
+                            <div className={clsx(getClassName("kcLabelWrapperClass"), "subtitle")}>
                                 <span className="subtitle">
                                     <span className="required">*</span> {msg("requiredFields")}
                                 </span>
@@ -137,7 +141,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         </div>
                     ) : (
                         <>
-                            <div className={clsx(props.kcFormGroupClass)}>
+                            <div className={getClassName("kcFormGroupClass")}>
                                 <div id="kc-username">
                                     <Button appearance="base"><i className="p-icon--user"></i> <span id="kc-attempted-username">{auth?.attemptedUsername}</span></Button>
                                     <Tooltip message={msg("restartLoginTooltip")}>
@@ -172,16 +176,17 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                             </Notification>}
                         </>
                     )}
-                    {formNode}
+                    {children}
                     {auth !== undefined && auth.showTryAnotherWayLink && showAnotherWayIfPresent && (
                         <form
                             id="kc-select-try-another-way-form"
                             action={url.loginAction}
                             method="post"
-                            className={clsx(displayWide && props.kcContentWrapperClass)}
-                        >
-                            <div className={clsx(displayWide && [props.kcFormSocialAccountContentClass, props.kcFormSocialAccountClass])}>
-                                <div className={clsx(props.kcFormGroupClass)}>
+                            className={clsx(displayWide && getClassName("kcContentWrapperClass"))}>
+                            <div className={clsx(
+                                displayWide && [getClassName("kcFormSocialAccountContentClass"), getClassName("kcFormSocialAccountClass")]
+                            )}>
+                                <div className={getClassName("kcFormGroupClass")}>
                                     <input type="hidden" name="tryAnotherWay" value="on" />
                                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                     <a href="#" id="try-another-way" onClick={() => {
@@ -195,8 +200,8 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         </form>
                     )}
                     {displayInfo && (
-                        <div id="kc-info" className={clsx(props.kcSignUpClass)}>
-                            <div id="kc-info-wrapper" className={clsx(props.kcInfoAreaWrapperClass)}>
+                        <div id="kc-info" className={getClassName("kcSignUpClass")}>
+                            <div id="kc-info-wrapper" className={getClassName("kcInfoAreaWrapperClass")}>
                                 {infoNode}
                             </div>
                         </div>
