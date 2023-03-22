@@ -74,6 +74,12 @@ export const { useI18n } = createUseI18n({
 
         "loginIdpReviewProfileTitle": "계정 정보 업데이트",
 
+        "emailVerifyTitle": "이메일 확인",
+        "emailVerifyInstruction1": "이메일 확인을 위한 절차가 담긴 이메일을 이메일 주소 {0} (으)로 보내드렸습니다.",
+        "emailVerifyInstruction2": "아직 확인 코드를 이메일로 받지 못하셨습니까?",
+        "emailVerifyInstruction3": "하여 이메일을 다시 받아보십시오",
+        "doClickHere": "여기를 클릭"
+
     }
 });
 
