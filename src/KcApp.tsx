@@ -28,6 +28,7 @@ const LoginIdpLinkEmail = lazy(() => import("./pages/LoginIdpLinkEmail"));
 const LoginIdpLinkConfirm = lazy(() => import("./pages/LoginIdpLinkConfirm"));
 const IdpReviewUserProfile = lazy(() => import("./pages/IdpReviewUserProfile"));
 const LogoutConfirm = lazy(() => import("./pages/LogoutConfirm"));
+const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
 const MyExtraPage1 = lazy(() => import("./pages/MyExtraPage1"));
 const MyExtraPage2 = lazy(() => import("./pages/MyExtraPage2"));
 const Info = lazy(() => import("keycloakify/login/pages/Info"));
@@ -94,6 +95,7 @@ export default function App(props: { kcContext: KcContext; }) {
                     case "login-idp-link-confirm.ftl": return <LoginIdpLinkConfirm {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     case "idp-review-user-profile.ftl": return <IdpReviewUserProfile {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     case "logout-confirm.ftl": return <LogoutConfirm {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
+                    case "login-update-password.ftl": return <LoginUpdatePassword {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // case "my-extra-page-1.ftl": return <MyExtraPage1 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // case "my-extra-page-2.ftl": return <MyExtraPage2 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // We choose to use the default Template for the Info page and to download the theme resources.
