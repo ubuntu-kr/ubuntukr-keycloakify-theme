@@ -6,5 +6,6 @@ If there's any revision, We'll inform you with dedicated notice.
 
 - [Ubuntu Code of Conduct [Click to see details]](https://ubuntu.com/community/governance/code-of-conduct)
 - [Articles of incorperation and bylaws of Ubuntu Korea Community(Korean) [Click to see details]](https://disclosures.ubuntu-kr.org/legal/)
+- [Privacy policy (Korean) [Click to see details]](https://disclosures.ubuntu-kr.org/privacy-policy/)
 
 If you have any questions, you may contact us via [email](mailto:contact@ubuntu-kr.org).
