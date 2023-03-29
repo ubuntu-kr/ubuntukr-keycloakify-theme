@@ -13,11 +13,14 @@ export const { useI18n } = createUseI18n({
         "doSignOut": "로그아웃",
 
         "editAccountHtmlTitle": "계정 수정",
-        "requiredFields": "필수항목",
+        "requiredFields": "필수 입력 항목",
         "username": "사용자명(ID)",
         "email": "이메일",
         "firstName": "이름",
         "lastName": "성",
+
+        "changePasswordHtmlTitle": "암호 변경",
+        "allFieldsRequired": "모든 항목 입력 필수",
         "password": "암호",
         "passwordNew": "새 암호",
         "passwordConfirm": "암호 확인",
