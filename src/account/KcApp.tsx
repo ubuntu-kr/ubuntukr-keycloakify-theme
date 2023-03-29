@@ -12,6 +12,7 @@ const Account = lazy(() => import("./pages/Account"));
 const Password = lazy(() => import("./pages/Password"));
 const MyExtraPage1 = lazy(() => import("./pages/MyExtraPage1"));
 const MyExtraPage2 = lazy(() => import("./pages/MyExtraPage2"));
+const Sessions = lazy(() => import("./pages/Sessions"));
 const Fallback = lazy(()=> import("keycloakify/account"));
 
 const classes: PageProps<any, any>["classes"] = {
@@ -36,6 +37,7 @@ export default function App(props: { kcContext: KcContext; }) {
                     case "password.ftl": return <Password {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     case "my-extra-page-1.ftl": return <MyExtraPage1 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     case "my-extra-page-2.ftl": return <MyExtraPage2 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
+                    case "sessions.ftl": return <Sessions {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     default: return <Fallback {...{ kcContext, i18n, classes }} Template={Template} doUseDefaultCss={true} />;
                 }
             })()}

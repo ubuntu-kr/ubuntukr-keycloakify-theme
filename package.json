@@ -18,12 +18,17 @@
         "groupId": "org.ubuntu-kr.keycloak",
         "artifactId": "ubuntukr-theme",
         "extraThemeProperties": [
+            "parent=base",
+            "import=common/keycloak",
             "locales=en,ko"
+
         ],
-        "extraPages": [
-            "my-extra-page-1.ftl",
-            "my-extra-page-2.ftl"
-        ]
+        "extraLoginPages": [
+        ],
+        "extraAccountPages": [
+            "sessions.ftl"
+        ],
+        "keycloakVersionDefaultAssets": "21.0.1"
     },
     "author": "u/garronej",
     "license": "MIT",

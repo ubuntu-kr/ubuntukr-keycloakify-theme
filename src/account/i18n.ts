@@ -26,6 +26,13 @@ export const { useI18n } = createUseI18n({
         "passwordConfirm": "암호 확인",
         "doSave": "저장",
         "doCancel": "취소",
+
+        "sessionsHtmlTitle": "세션",
+        "lastAccess": "최근 접속",
+        "started": "시작 일시",
+        "expires": "만료 일시",
+        "clients": "클라이언트",
+        "doLogOutAllSessions": "모든 세션 로그아웃",
        
     }
 });
