@@ -35,7 +35,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     }
 
     return (
-        <div>
+        <div className="l-site">
             <header id="navigation" className="p-navigation is-dark">
                 <div className="p-navigation__row">
                     <div className="p-navigation__banner">
@@ -151,6 +151,24 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 </main>
 
             </Strip>
+            <footer className="l-footer--sticky p-strip--light">
+                <nav className="row" aria-label="Footer">
+                    <div className="has-cookie">
+                        <p>© 2023-Present Ubuntu Korea Community.</p>
+                        <ul className="p-inline-list--middot">
+                            <li className="p-inline-list__item">
+                                <a href="https://ubuntu.com/community/code-of-conduct"><small>우분투 행동강령 (Ubuntu Code of Conducts)</small></a>
+                            </li>
+                            <li className="p-inline-list__item">
+                                <a href="https://disclosures.ubuntu-kr.org/legal/"><small>정관 및 세칙 (Articles and bylaws)</small></a>
+                            </li>
+                            <li className="p-inline-list__item">
+                                <a href="https://disclosures.ubuntu-kr.org/privacy-policy/"><small>개인정보처리방침 (Privacy policy)</small></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </footer>
         </div>
     );
 }
