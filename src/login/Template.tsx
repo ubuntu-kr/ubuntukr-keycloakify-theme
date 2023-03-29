@@ -224,6 +224,9 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                             <li className="p-inline-list__item">
                                 <a href="https://disclosures.ubuntu-kr.org/privacy-policy/"><small>개인정보처리방침 (Privacy policy)</small></a>
                             </li>
+                            <li className="p-inline-list__item">
+                                <a href="mailto:contact@ubuntu-kr.org"><small>문의 (Contact)</small></a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
