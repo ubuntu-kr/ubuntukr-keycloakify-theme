@@ -5,7 +5,7 @@ import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
 import { Form, Button, Input } from "@canonical/react-components";
 
-export default function LogoutConfirm(props: PageProps<Extract<KcContext, { pageId: "password.ftl" }>, I18n>) {
+export default function Password(props: PageProps<Extract<KcContext, { pageId: "password.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
     const { getClassName } = useGetClassName({
