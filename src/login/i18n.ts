@@ -10,7 +10,7 @@ export const { useI18n } = createUseI18n({
         "gender": "성별",
         "doLogIn": "로그인",
         "doForgotPassword": "암호를 잊어버렸습니다",
-        "usernameOrEmail": "사용자명 또는 이메일",
+        "usernameOrEmail": "사용자명(ID) 또는 이메일",
         "username": "사용자명(ID)",
         "email": "이메일",
         "password": "암호",
