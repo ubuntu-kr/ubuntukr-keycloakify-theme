@@ -1,7 +1,7 @@
 {
     "name": "ubuntukr-keycloakify-theme",
     "homepage": "https://github.com/ubuntu-kr/ubuntukr-keycloakify-theme",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Keycloak theme for Ubuntu Korea",
     "repository": {
         "type": "git",
@@ -26,7 +26,8 @@
         "extraLoginPages": [
         ],
         "extraAccountPages": [
-            "sessions.ftl"
+            "sessions.ftl",
+            "federatedIdentity.ftl"
         ],
         "keycloakVersionDefaultAssets": "21.0.1"
     },

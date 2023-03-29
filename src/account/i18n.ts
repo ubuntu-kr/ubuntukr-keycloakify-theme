@@ -5,7 +5,7 @@ export const { useI18n } = createUseI18n({
     "ko": {
         "account":"계정",
         "authenticator":"인증기",
-        "federatedIdentity":"소셜 로그인",
+        "federatedIdentity":"통합 인증",
         "sessions":"세션",
         "applications":"애플리케이션",
         "log":"로그",
@@ -34,6 +34,9 @@ export const { useI18n } = createUseI18n({
         "clients": "클라이언트",
         "doLogOutAllSessions": "모든 세션 로그아웃",
        
+        "federatedIdentitiesHtmlTitle": "통합 인증",
+        "doRemove": "삭제",
+        "doAdd": "추가",
     }
 });
 

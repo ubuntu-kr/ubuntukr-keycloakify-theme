@@ -16,6 +16,19 @@ export type KcContextExtension =
 				clients: string[];
 			}[];
 		}
+	}
+	| {
+		pageId: "federatedIdentity.ftl";
+		stateChecker: string;
+		federatedIdentity: {
+			identities: {
+				userName: string;
+				displayName: string;
+				providerId: string;
+				connected: boolean;
+			}[];
+			removeLinkPossible: boolean;
+		}
 	};
 
 export const { kcContext } = getKcContext<KcContextExtension>({
