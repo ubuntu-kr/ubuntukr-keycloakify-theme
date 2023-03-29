@@ -1,5 +1,16 @@
-/* 
+.my-color {
+	color: red;
+}
+
+body {
+	font-family: 'Ubuntu';
+}
 
 .my-root-class {
-	background: url(./assets/background.svg) no-repeat center center fixed;
-} */
+	background: white;
+}
+
+.my-root-class body {
+	/* background: url(./assets/background.svg) no-repeat center center fixed; */
+	background: white;
+}

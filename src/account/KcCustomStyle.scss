@@ -1,0 +1,16 @@
+// Import the theme
+@import 'vanilla-framework';
+
+@include vanilla;
+@include vf-p-icons;
+@include vf-p-icons-common;
+
+@include vf-p-icon-github
+
+
+
+
+// Optionally override some settings
+// $color-brand: #ffffff;
+
+// Add theme if applicable

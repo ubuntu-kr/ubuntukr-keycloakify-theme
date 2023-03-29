@@ -7,6 +7,8 @@ import { useGetClassName } from "keycloakify/account/lib/useGetClassName";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
 import { assert } from "keycloakify/tools/assert";
+import { Navigation, Row, Strip, Col, Notification, Button, Input } from "@canonical/react-components";
+import { useState } from "react";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, active, classes, children } = props;
@@ -20,114 +22,135 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     const { isReady } = usePrepareTemplate({
         "doFetchDefaultThemeResources": doUseDefaultCss,
         url,
-        "stylesCommon": ["node_modules/patternfly/dist/css/patternfly.min.css", "node_modules/patternfly/dist/css/patternfly-additions.min.css"],
-        "styles": ["css/account.css"],
+        "stylesCommon": [],
+        "styles": [],
         "htmlClassName": undefined,
-        "bodyClassName": clsx("admin-console", "user", getClassName("kcBodyClass"))
+        "bodyClassName": undefined
     });
+
+    const [isLangSelectorHidden, toggleLangSelector] = useState(true);
 
     if (!isReady) {
         return null;
     }
 
     return (
-        <>
-            <header className="navbar navbar-default navbar-pf navbar-main header">
-                <nav className="navbar" role="navigation">
-                    <div className="navbar-header">
-                        <div className="container">
-                            <h1 className="navbar-title">Keycloak</h1>
+        <div>
+            <header id="navigation" className="p-navigation is-dark">
+                <div className="p-navigation__row">
+                    <div className="p-navigation__banner">
+                        <div className="p-navigation__tagged-logo">
+                            <a className="p-navigation__link" href="#">
+                                <div className="p-navigation__logo-tag">
+                                    <img className="p-navigation__logo-icon" src="https://github.com/ubuntu-kr/logo-artworks/raw/main/UbuntuKrCircleWhite.svg" alt="" />
+                                </div>
+                                <span className="p-navigation__logo-title">SSO Account Console</span>
+                            </a>
                         </div>
+                        <a href="#navigation" className="p-navigation__toggle--open" title="menu">Menu</a>
+                        <a href="#navigation-closed" className="p-navigation__toggle--close" title="close menu">Close menu</a>
                     </div>
-                    <div className="navbar-collapse navbar-collapse-1">
-                        <div className="container">
-                            <ul className="nav navbar-nav navbar-utility">
-                                {realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1 && (
-                                    <li>
-                                        <div className="kc-dropdown" id="kc-locale-dropdown">
-                                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                            <a href="#" id="kc-current-locale-link">
-                                                {labelBySupportedLanguageTag[currentLanguageTag]}
-                                            </a>
-                                            <ul>
-                                                {locale.supported.map(({ languageTag }) => (
-                                                    <li key={languageTag} className="kc-dropdown-item">
-                                                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                                        <a href="#" onClick={() => changeLocale(languageTag)}>
-                                                            {labelBySupportedLanguageTag[languageTag]}
-                                                        </a>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </li>
-                                )}
-                                {referrer?.url !== undefined && (
-                                    <li>
-                                        <a href={referrer.url} id="referrer">
-                                            {msg("backTo", referrer.name)}
+                    <nav className="p-navigation__nav" aria-label="Example sub navigation">
+                        <ul className="p-navigation__items">
+                            <li className="p-navigation__item">
+                                <a className="p-navigation__link" href="https://ubuntu-kr.org">ubuntu-kr.org</a>
+                            </li>
+                        </ul>
+                        <ul className="p-navigation__items">
+                            {(realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1) ?
+                                (
+
+                                    <li className={`p-navigation__item--dropdown-toggle ${isLangSelectorHidden ? "" : "is-active"}`} id="link-4">
+                                        <a className="p-navigation__link" aria-controls="account-menu" onClick={() => toggleLangSelector(!isLangSelectorHidden)}>
+                                            {labelBySupportedLanguageTag[currentLanguageTag]}
                                         </a>
+
+                                        <ul className="p-navigation__dropdown--right" id="account-menu" aria-hidden={isLangSelectorHidden}>
+                                            {locale.supported.map(({ languageTag }) =>
+                                                <li>
+                                                    <a onClick={() => changeLocale(languageTag)} className="p-navigation__dropdown-item">{labelBySupportedLanguageTag[languageTag]}</a>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </li>
+
+                                ) : (<></>)}
+                            {referrer?.url !== undefined && (
+                                <li className="p-navigation__item">
+                                    <a className="p-navigation__link" href={referrer.url} id="referrer">
+                                        {msg("backTo", referrer.name)}
+                                    </a>
+                                </li>
+                            )}
+                            <li className="p-navigation__item">
+                                <a className="p-navigation__link" href={url.getLogoutUrl()}>
+                                    {msg("doSignOut")}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header >
+            <Strip includeCol={false}>
+                <aside className="col-3">
+                    <nav className="p-side-navigation--raw-html is-sticky" id="drawer" aria-label="Table of contents">
+                        <a href="#drawer" className="p-side-navigation__toggle js-drawer-toggle" aria-controls="drawer">
+                            Menu
+                        </a>
+
+                        <div className="p-side-navigation__overlay js-drawer-toggle" aria-controls="drawer"></div>
+
+                        <div className="p-side-navigation__drawer">
+                            <div className="p-side-navigation__drawer-header">
+                                <a href="#" className="p-side-navigation__toggle--in-drawer js-drawer-toggle"
+                                    aria-controls="drawer">
+                                    Menu
+                                </a>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a className={active === "account" ? "is-active" : ""} href={url.accountUrl}>{msg("account")}</a>
+                                </li>
+                                {features.passwordUpdateSupported && (
+                                    <li>
+                                        <a className={active === "password" ? "is-active" : ""} href={url.passwordUrl}>{msg("password")}</a>
                                     </li>
                                 )}
                                 <li>
-                                    <a href={url.getLogoutUrl()}>{msg("doSignOut")}</a>
+                                    <a className={active === "totp" ? "is-active" : ""} href={url.totpUrl}>{msg("authenticator")}</a>
                                 </li>
+                                {features.identityFederation && (
+                                    <li>
+                                        <a className={active === "social" ? "is-active" : ""} href={url.socialUrl}>{msg("federatedIdentity")}</a>
+                                    </li>
+                                )}
+                                <li>
+                                    <a className={active === "sessions" ? "is-active" : ""} href={url.sessionsUrl}>{msg("sessions")}</a>
+                                </li>
+                                <li>
+                                    <a className={active === "applications" ? "is-active" : ""} href={url.applicationsUrl}>{msg("applications")}</a>
+                                </li>
+                                {features.log && (
+                                    <li>
+                                        <a className={active === "log" ? "is-active" : ""} href={url.logUrl}>{msg("log")}</a>
+                                    </li>
+                                )}
+                                {realm.userManagedAccessAllowed && features.authorization && (
+                                    <li>
+                                        <a className={active === "authorization" ? "is-active" : ""} href={url.resourceUrl}>{msg("myResources")}</a>
+                                    </li>
+                                )}
                             </ul>
                         </div>
-                    </div>
-                </nav>
-            </header>
+                    </nav>
 
-            <div className="container">
-                <div className="bs-sidebar col-sm-3">
-                    <ul>
-                        <li className={clsx(active === "account" && "active")}>
-                            <a href={url.accountUrl}>{msg("account")}</a>
-                        </li>
-                        {features.passwordUpdateSupported && (
-                            <li className={clsx(active === "password" && "active")}>
-                                <a href={url.passwordUrl}>{msg("password")}</a>
-                            </li>
-                        )}
-                        <li className={clsx(active === "totp" && "active")}>
-                            <a href={url.totpUrl}>{msg("authenticator")}</a>
-                        </li>
-                        {features.identityFederation && (
-                            <li className={clsx(active === "social" && "active")}>
-                                <a href={url.socialUrl}>{msg("federatedIdentity")}</a>
-                            </li>
-                        )}
-                        <li className={clsx(active === "sessions" && "active")}>
-                            <a href={url.sessionsUrl}>{msg("sessions")}</a>
-                        </li>
-                        <li className={clsx(active === "applications" && "active")}>
-                            <a href={url.applicationsUrl}>{msg("applications")}</a>
-                        </li>
-                        {features.log && (
-                            <li className={clsx(active === "log" && "active")}>
-                                <a href={url.logUrl}>{msg("log")}</a>
-                            </li>
-                        )}
-                        {realm.userManagedAccessAllowed && features.authorization && (
-                            <li className={clsx(active === "authorization" && "active")}>
-                                <a href={url.resourceUrl}>{msg("myResources")}</a>
-                            </li>
-                        )}
-                    </ul>
-                </div>
+                </aside>
 
-                <div className="col-sm-9 content-area">
-                    {message !== undefined && (
-                        <div className={clsx("alert", `alert-${message.type}`)}>
-                            {message.type === "success" && <span className="pficon pficon-ok"></span>}
-                            {message.type === "error" && <span className="pficon pficon-error-circle-o"></span>}
-                            <span className="kc-feedback-text">{message.summary}</span>
-                        </div>
-                    )}
-
+                <main className="col-9" id="main-content">
                     {children}
-                </div>
-            </div>
-        </>
+                </main>
+
+            </Strip>
+        </div>
     );
 }
