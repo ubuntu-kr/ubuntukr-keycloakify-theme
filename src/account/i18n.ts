@@ -3,13 +3,13 @@ import { createUseI18n } from "keycloakify/account";
 //NOTE: See src/login/i18n.ts for instructions on customization of i18n messages.
 export const { useI18n } = createUseI18n({
     "ko": {
-        "account":"계정",
-        "authenticator":"인증기",
-        "federatedIdentity":"통합 인증",
-        "sessions":"세션",
-        "applications":"애플리케이션",
-        "log":"로그",
-        "myResources":"내 리소스",
+        "account": "계정",
+        "authenticator": "인증기",
+        "federatedIdentity": "통합 인증",
+        "sessions": "세션",
+        "applications": "애플리케이션",
+        "log": "로그",
+        "myResources": "내 리소스",
         "doSignOut": "로그아웃",
 
         "editAccountHtmlTitle": "계정 수정",
@@ -33,7 +33,7 @@ export const { useI18n } = createUseI18n({
         "expires": "만료 일시",
         "clients": "클라이언트",
         "doLogOutAllSessions": "모든 세션 로그아웃",
-       
+
         "federatedIdentitiesHtmlTitle": "통합 인증",
         "doRemove": "삭제",
         "doAdd": "추가",
@@ -44,7 +44,33 @@ export const { useI18n } = createUseI18n({
         "grantedPermissions": "승인된 권한",
         "fullAccess": "전체 접근 권한",
         "additionalGrants": "추가 승인 권한",
-        "inResource": "-"
+        "inResource": "--",
+        "client_account": "계정",
+        "client_account-console": "계정 콘솔",
+        "role_admin": "관리자",
+        "role_realm-admin": "Realm 관리자",
+        "role_create-realm": "Realm 생성",
+        "role_view-realm": "Realm 보기",
+        "role_view-users": "사용자 보기",
+        "role_view-applications": "애플리케이션 보기",
+        "role_view-groups": "그룹 보기",
+        "role_view-clients": "클라이언트 보기",
+        "role_view-events": "이벤트 보기",
+        "role_view-identity-providers": "인증 제공자 보기",
+        "role_view-consent": "View consents",
+        "role_manage-realm": "Realm 관리",
+        "role_manage-users": "사용자 관리",
+        "role_manage-applications": "애플리케이션 관리",
+        "role_manage-identity-providers": "인증 제공자 관리",
+        "role_manage-clients": "클라이언트 관리",
+        "role_manage-events": "이벤트 관리",
+        "role_view-profile": "프로필 보기",
+        "role_manage-account": "계정 관리",
+        "role_manage-account-links": "계정 연결 관리",
+        "role_manage-consent": "동의 항목 관리",
+        "role_read-token": "토큰 일기",
+        "role_offline-access": "오프라인 액세스",
+        "role_uma_authorization": "권한 얻기",
     }
 });
 
