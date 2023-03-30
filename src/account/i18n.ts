@@ -37,6 +37,14 @@ export const { useI18n } = createUseI18n({
         "federatedIdentitiesHtmlTitle": "통합 인증",
         "doRemove": "삭제",
         "doAdd": "추가",
+
+        "applicationsHtmlTitle": "애플리케이션",
+        "revoke": "승인 회수",
+        "availableRoles": "사용 가능 역할",
+        "grantedPermissions": "승인된 권한",
+        "fullAccess": "전체 접근 권한",
+        "additionalGrants": "추가 승인 권한",
+        "inResource": "-"
     }
 });
 
