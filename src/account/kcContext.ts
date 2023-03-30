@@ -58,6 +58,25 @@ export type KcContextExtension =
 				additionalGrants: string[];
 			}[];
 		}
+	}
+	| {
+		pageId: "totp.ftl";
+		stateChecker: string;
+		totp:{
+			enabled: boolean;
+			otpCredentials: {
+				id: string;
+				userLabel: string;
+
+			}[];
+			supportedApplications: string[];
+			qrUrl: string;
+			manualUrl: string;
+			totpSecretQrCode: string;
+			totpSecretEncoded: string;
+			totpSecret: string;
+		}
+		
 	};
 
 export const { kcContext } = getKcContext<KcContextExtension>({
