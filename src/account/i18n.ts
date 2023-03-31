@@ -4,7 +4,7 @@ import { createUseI18n } from "keycloakify/account";
 export const { useI18n } = createUseI18n({
     "ko": {
         "account": "계정",
-        "authenticator": "인증기",
+        "authenticator": "인증기(OTP)",
         "federatedIdentity": "통합 인증",
         "sessions": "세션",
         "applications": "애플리케이션",
@@ -71,6 +71,25 @@ export const { useI18n } = createUseI18n({
         "role_read-token": "토큰 일기",
         "role_offline-access": "오프라인 액세스",
         "role_uma_authorization": "권한 얻기",
+
+        "authenticatorTitle": "인증기(OTP)",
+        "totpStep1": "다음 중 하나의 모바일 인증기 앱(OTP 앱)을 휴대전화에 설치 하십시오:",
+        "totpStep2": "앱을 열고 아래 바코드를 스캔 하십사오:",
+        "totpUnableToScan": "스캔하실 수 없습니까?",
+        "totpStep3": "앱에서 제공하는 일회용 코드를 입력하고, 제출을 클릭하여 설정을 완료하십시오.",
+        "totpStep3DeviceName": "OTP 장치를 더 쉽게 관리하기 위해, 장치 이름도 입력 해 주시기 바랍니다.",
+        "authenticatorCode": "일회용 코드",
+        "totpDeviceName": "장치 이름",
+        "totpManualStep2": "앱을 열고 키를 입력하십시오:",
+        "totpManualStep3": "앱에서 구성 값 변경이 가능한 경우, 다음 구성 값을 이용하십시오:",
+        "totpScanBarcode": "바코드를 스캔하시겠습니까?",
+        "totpType": "유형",
+        "totpAlgorithm": "알고리즘",
+        "totpDigits": "자릿수",
+        "totpInterval": "간격",
+        "totpCounter": "카운터",
+        "totp.totp": "시간 기반",
+        "totp.hotp": "카운터 기반"
     }
 });
 

@@ -28,7 +28,8 @@
         "extraAccountPages": [
             "sessions.ftl",
             "federatedIdentity.ftl",
-            "applications.ftl"
+            "applications.ftl",
+            "totp.ftl"
         ],
         "keycloakVersionDefaultAssets": "21.0.1"
     },

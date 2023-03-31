@@ -29,7 +29,7 @@ export type KcContextExtension =
 			}[];
 			removeLinkPossible: boolean;
 		}
-	} 
+	}
 	| {
 		pageId: "applications.ftl";
 		stateChecker: string;
@@ -62,7 +62,8 @@ export type KcContextExtension =
 	| {
 		pageId: "totp.ftl";
 		stateChecker: string;
-		totp:{
+		mode?: "qr" | "manual" | null | undefined;
+		totp: {
 			enabled: boolean;
 			otpCredentials: {
 				id: string;
@@ -75,8 +76,18 @@ export type KcContextExtension =
 			totpSecretQrCode: string;
 			totpSecretEncoded: string;
 			totpSecret: string;
+			policy: {
+				algorithm: string;
+				algorithmKey: string;
+				codeReusable: boolean;
+				digits: string;
+				initialCounter: string;
+				lookAheadWindow: string;
+				period: string;
+				type: string;
+			}
 		}
-		
+
 	};
 
 export const { kcContext } = getKcContext<KcContextExtension>({
