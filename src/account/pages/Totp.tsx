@@ -44,6 +44,8 @@ export default function Sessions(props: PageProps<Extract<KcContext, { pageId: "
                 <li id="kc-totp-type">{msg("totpType")}: {totp.policy.type == "totp" ? msgStr("totp.totp") : msgStr("totp.hotp")}</li>
                 <li id="kc-totp-algorithm">{msg("totpAlgorithm")}: {totp.policy.algorithm}</li>
                 <li id="kc-totp-digits">{msg("totpDigits")}: {totp.policy.digits}</li>
+                {totp.policy.type == "totp" ?
+                    (<li id="kc-totp-period">{msg("totpInterval")}: {totp.policy.period}</li>) : (<li>{msg("totpCounter")}: {totp.policy.initialCounter}</li>)}
             </ul>
         })
     } else {
@@ -114,7 +116,7 @@ export default function Sessions(props: PageProps<Extract<KcContext, { pageId: "
                                         id="userLabel"
                                         name="userLabel"
                                         error={messagesPerField.existsError("userLabel") ? messagesPerField.get("userLabel") : null} />
-                                    <Button element={'input'}
+                                    <Button element={'button'}
                                         className={"p-button"}
                                         id="saveTOTPBtn"
                                         type="submit"
