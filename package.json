@@ -18,8 +18,6 @@
         "groupId": "org.ubuntu-kr.keycloak",
         "artifactId": "ubuntukr-theme",
         "extraThemeProperties": [
-            "parent=base",
-            "import=common/keycloak",
             "locales=en,ko"
 
         ],
