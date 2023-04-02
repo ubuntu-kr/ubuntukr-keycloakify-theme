@@ -28,6 +28,7 @@ export const { useI18n } = createUseI18n({
         "doAccept": "수락",
         "doDecline": "거부",
         "doCancel": "취소",
+        "doTryAnotherWay": "다른 방법 시도하기",
 
         "invalidUserMessage": "잘못된 사용자명 또는 암호입니다.",
         "invalidUsernameMessage": "잘못된 사용자명입니다.",
@@ -78,7 +79,20 @@ export const { useI18n } = createUseI18n({
         "emailVerifyInstruction1": "이메일 확인을 위한 절차가 담긴 이메일을 이메일 주소 {0} (으)로 보내드렸습니다.",
         "emailVerifyInstruction2": "아직 확인 코드를 이메일로 받지 못하셨습니까?",
         "emailVerifyInstruction3": "하여 이메일을 다시 받아보십시오",
-        "doClickHere": "여기를 클릭"
+        "doClickHere": "여기를 클릭",
+
+        "confirmLinkIdpTitle":"이미 존재하는 계정입니다",
+        "federatedIdentityConfirmLinkMessage":"{0} 이 {1} 인 계정이 이미 존재합니다. 어떻게 하시겠습니까?",
+        "federatedIdentityConfirmReauthenticateMessage": "인증하여 계정에 {0} (을)를 연결",
+        "confirmLinkIdpReviewProfile": "프로필 검토",
+        "confirmLinkIdpContinue": "기존 계정에 추가",
+
+        "emailLinkIdpTitle":"{0} 연결하기",
+        "emailLinkIdp1":"{2} 계정 {1} 에 {0} (을)를 연결하기 위한 절차가 담긴 이메일을 보내 드렸습니다.",
+        "emailLinkIdp2":"이메일로 인증코드를 받지 못하셨습니까?",
+        "emailLinkIdp3":"하여 다시 이메일을 발송할 수 있습니다.",
+        "emailLinkIdp4":"이미 이메일을 다른 브라우저에서 인증 하셨다면",
+        "emailLinkIdp5":"하여 계속하실 수 있습니다.",
 
     }
 });
