@@ -19,15 +19,8 @@
         "artifactId": "ubuntukr-theme",
         "extraThemeProperties": [
             "locales=en,ko"
-
         ],
         "extraLoginPages": [
-        ],
-        "extraAccountPages": [
-            "sessions.ftl",
-            "federatedIdentity.ftl",
-            "applications.ftl",
-            "totp.ftl"
         ],
         "keycloakVersionDefaultAssets": "21.0.1"
     },
