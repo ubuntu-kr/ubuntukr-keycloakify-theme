@@ -52,7 +52,7 @@ export default function LoginUpdatePassword(props: PageProps<Extract<KcContext, 
                     />
                     <div id="kc-form-options">
                         {isAppInitiatedAction && (
-                            <Input id="logout-sessions" name="logout-sessions" value="on" checked label={msgStr("logoutOtherSessions")} />
+                            <Input type="checkbox" id="logout-sessions" name="logout-sessions" value="on" defaultChecked label={msgStr("logoutOtherSessions")} />
                         )}
                     </div>
                     <div id="kc-form-buttons">
