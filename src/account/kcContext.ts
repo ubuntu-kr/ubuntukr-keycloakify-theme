@@ -88,6 +88,86 @@ export type KcContextExtension =
 			}
 		}
 
+	}
+	| {
+		pageId: "resources.ftl";
+		stateChecker: string;
+		authorization: {
+			resourcesWaitingApproval: {
+				id: string;
+				name: string;
+				displayName: string;
+				permissions: {
+					requester: {
+						username: string;
+						email: string;
+					}
+					scopes: {
+						scope: {
+							id: string;
+							displayName: string;
+							name: string;
+
+						}
+					}[];
+				}[];
+			}[];
+			resources: {
+				id: string;
+				name: string;
+				displayName: string;
+				resourceServer: {
+					baseUri: string;
+					name: string;
+				}
+				shares: {
+
+				}[];
+			}[];
+			sharedResources: {
+				id: string;
+				name: string;
+				displayName: string;
+				ownerName: string;
+				resourceServer: {
+					baseUri: string;
+					name: string;
+				}
+				permissions: {
+					grantedDate: Date;
+					requester: {
+						username: string;
+						email: string;
+					}
+					scopes: {
+						granted: boolean;
+						scope: {
+							id: string;
+							displayName: string;
+							name: string;
+						}
+					}[];
+				}
+			}[];
+			resourcesWaitingOthersApproval: {
+				id: string;
+				name: string;
+				displayName: string;
+				ownerName: string;
+				permissions: {
+					grantedDate: Date;
+					createdDate: Date;
+					scopes: {
+						granted: boolean;
+						scope: {
+							id: string;
+							displayName: string;
+							name: string;
+						}
+					}[];
+				}
+			}[];
+		}
 	};
 
 export const { kcContext } = getKcContext<KcContextExtension>({

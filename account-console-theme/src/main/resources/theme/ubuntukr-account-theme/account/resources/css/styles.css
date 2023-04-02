@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+body {
+  --pf-global--FontFamily--sans-serif: Ubuntu;
+  --pf-global--FontFamily--heading--sans-serif: Ubuntu;
+
+  --pf-global--BackgroundColor--dark-100: #333333;
+
+  --pf-global--Color--100: black;
+  --pf-global--active-color--400: white;
+}
+
+.pf-c-page__sidebar{
+  background-color: #111;
+}
+
+.pf-c-nav__link .pf-m-current {
+background-color: #111;
+/* --pf-c-nav__link--m-current--after--BorderColor: white; */
+}
+
+#spinner_screen  img {
+  display: none;
+}

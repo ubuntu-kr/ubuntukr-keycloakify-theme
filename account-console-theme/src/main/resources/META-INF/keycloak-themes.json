@@ -1,0 +1,6 @@
+{
+  "themes": [{
+    "name" : "ubuntukr-account-theme",
+    "types": [ "account" ]
+  }]
+}
