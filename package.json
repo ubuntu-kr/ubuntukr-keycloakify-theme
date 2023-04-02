@@ -1,7 +1,7 @@
 {
     "name": "ubuntukr-keycloakify-theme",
     "homepage": "https://github.com/ubuntu-kr/ubuntukr-keycloakify-theme",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Keycloak theme for Ubuntu Korea",
     "repository": {
         "type": "git",
