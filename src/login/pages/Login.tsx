@@ -10,7 +10,7 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
 import { Icon, Button, Form, Input } from "@canonical/react-components";
-
+import GoogleLogo from "../assets/g-logo.png";
 
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl"; }>, I18n>) {
 	const { kcContext, i18n, doUseDefaultCss, Template, ...kcProps } = props;
@@ -133,10 +133,15 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 								{realm.password && social.providers !== undefined && (
 									<>
 										<hr></hr>
-										<div id="kc-social-providers" >
+										<p>{msg("identity-provider-login-label")}</p>
+										<div id="kc-social-providers" style={{display: "flex"}}>
 											{social.providers.map(p => (
-												<Button hasIcon element="a" href={p.loginUrl} id={`zocial-${p.alias}`} >
-													<Icon name={p.alias} style={{ height: '14px' }} /> <span>{p.displayName}</span>
+												<Button hasIcon element="a" href={p.loginUrl} id={`zocial-${p.alias}`} 
+													style={{display: "flex",justifyContent: "center", alignItems: "center"}}>
+													{p.alias == "google" ? (
+														<img src={GoogleLogo} alt="Google" style={{height: "18px", marginLeft: "-8px"}}/>
+													) : (<Icon name={p.alias}  style={{height: "18px", width: "18px"}}/> )}
+													<span style={{fontSize: "14px", marginLeft: "24px", marginRight: "-8px"}}>{p.displayName}</span>
 												</Button>
 											))}
 										</div>

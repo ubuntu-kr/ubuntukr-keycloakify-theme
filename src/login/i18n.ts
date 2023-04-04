@@ -1,6 +1,5 @@
 import { createUseI18n } from "keycloakify/login";
 
-
 export const { useI18n } = createUseI18n({
     "ko": {
         "current": "한국어",
@@ -29,6 +28,7 @@ export const { useI18n } = createUseI18n({
         "doDecline": "거부",
         "doCancel": "취소",
         "doTryAnotherWay": "다른 방법 시도하기",
+        "identity-provider-login-label": "또는 다음 계정으로 로그인",
 
         "invalidUserMessage": "잘못된 사용자명 또는 암호입니다.",
         "invalidUsernameMessage": "잘못된 사용자명입니다.",
