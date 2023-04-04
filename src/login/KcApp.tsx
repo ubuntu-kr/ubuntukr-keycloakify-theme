@@ -1,12 +1,12 @@
 import "./KcApp.css";
 import "./KcCustomStyle.scss"
 import { lazy, Suspense } from "react";
+import Fallback, { type PageProps } from "keycloakify/login";
 import type { KcContext } from "./kcContext";
 import { useI18n } from "./i18n";
-import Fallback, { type PageProps } from "keycloakify/login";
+import { useDownloadTerms } from "keycloakify/login";
 import tos_en_url from "./assets/tos_en.md";
 import tos_ko_url from "./assets/tos_ko.md";
-import { useDownloadTerms } from "keycloakify/login";
 
 // import { foo, bar } from "./valuesTransferredOverUrl";
 
@@ -29,8 +29,6 @@ const LoginIdpLinkConfirm = lazy(() => import("./pages/LoginIdpLinkConfirm"));
 const IdpReviewUserProfile = lazy(() => import("./pages/IdpReviewUserProfile"));
 const LogoutConfirm = lazy(() => import("./pages/LogoutConfirm"));
 const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
-const MyExtraPage1 = lazy(() => import("./pages/MyExtraPage1"));
-const MyExtraPage2 = lazy(() => import("./pages/MyExtraPage2"));
 const Info = lazy(() => import("keycloakify/login/pages/Info"));
 
 // This is like adding classes to theme.properties 
@@ -41,14 +39,13 @@ const classes: PageProps<any, any>["classes"] = {
     "kcHeaderWrapperClass": "my-color my-font"
 };
 
-
-
 export default function App(props: { kcContext: KcContext; }) {
-
 
     const { kcContext } = props;
 
-    useDownloadTerms({
+    const i18n = useI18n({ kcContext });
+
+	useDownloadTerms({
         kcContext,
         "downloadTermMarkdown": async ({ currentLanguageTag }) => {
 
@@ -62,9 +59,7 @@ export default function App(props: { kcContext: KcContext; }) {
             return markdownString;
         }
     });
-
-    const i18n = useI18n({ kcContext });
-
+    
     if (i18n === null) {
         //NOTE: Locales not yet downloaded, we could as well display a loading progress but it's usually a matter of milliseconds.
         return null;
@@ -75,9 +70,6 @@ export default function App(props: { kcContext: KcContext; }) {
     * i18n.msg("access-denied") === <span>Access denied</span>
     * i18n.msg("foo") === <span>foo in English</span>
     */
-
-
-
 
     return (
         <Suspense>
@@ -99,8 +91,8 @@ export default function App(props: { kcContext: KcContext; }) {
                     // case "my-extra-page-1.ftl": return <MyExtraPage1 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // case "my-extra-page-2.ftl": return <MyExtraPage2 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // We choose to use the default Template for the Info page and to download the theme resources.
-                    case "info.ftl": return <Info {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} Template={DefaultTemplate} />;
-                    default: return <Fallback {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
+                    case "info.ftl": return <Info {...{ kcContext, i18n, classes }} Template={DefaultTemplate} doUseDefaultCss={true} />;
+                    default: return <Fallback {...{ kcContext, i18n, classes }} Template={DefaultTemplate} doUseDefaultCss={true} />;
                 }
             })()}
         </Suspense>

@@ -7,50 +7,41 @@
  */
 import { useRerenderOnStateChange } from "evt/hooks";
 import { Markdown } from "keycloakify/tools/Markdown";
-import { useDownloadTerms } from "keycloakify/login";
-import { evtTermMarkdown } from "keycloakify/login/lib/useDownloadTerms";
-import tos_en_url from "../assets/tos_en.md";
-import tos_ko_url from "../assets/tos_ko.md";
-
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
+import { evtTermMarkdown } from "keycloakify/login/lib/useDownloadTerms";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
 import { Button, Form } from "@canonical/react-components";
+import { useDownloadTerms } from "keycloakify/login";
+import tos_en_url from "../assets/tos_en.md";
+import tos_ko_url from "../assets/tos_ko.md";
 
-export default function Terms(props: PageProps<Extract<KcContext, { pageId: "terms.ftl"; }>, I18n>) {
-	const { kcContext, i18n, doUseDefaultCss, Template, ...kcProps } = props;
+export default function Terms(props: PageProps<Extract<KcContext, { pageId: "terms.ftl" }>, I18n>) {
+	const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
-	const { msg, msgStr } = i18n;
+    // const { getClassName } = useGetClassName({
+    //     doUseDefaultCss,
+    //     classes
+    // });
 
-	useDownloadTerms({
-		kcContext,
-		"downloadTermMarkdown": async ({ currentLanguageTag }) => {
+    const { msg, msgStr } = i18n;
 
-			const markdownString = await fetch((() => {
-				switch (currentLanguageTag) {
-					case "ko": return tos_ko_url;
-					default: return tos_en_url;
-				}
-			})()).then(response => response.text());
+    useRerenderOnStateChange(evtTermMarkdown);
 
-			return markdownString;
-		},
-	});
+    const { url } = kcContext;
 
-	useRerenderOnStateChange(evtTermMarkdown);
+    const termMarkdown = evtTermMarkdown.state;
 
-	const { url } = kcContext;
-
-	if (evtTermMarkdown.state === undefined) {
-		return null;
-	}
+    if (termMarkdown === undefined) {
+        return null;
+    }
 
 	return (
-		<Template
-			{...{ kcContext, i18n, doUseDefaultCss, ...kcProps }}
-			displayMessage={false}
-			headerNode={msg("termsTitle")}>
-			<div id="kc-terms-text">{evtTermMarkdown.state && <Markdown>{evtTermMarkdown.state}</Markdown>}</div>
+		<Template {...{ kcContext, i18n, doUseDefaultCss, classes }} displayMessage={false} headerNode={msg("termsTitle")}>
+			<div id="kc-terms-text">
+                <Markdown>{termMarkdown}</Markdown>
+            </div>
 			<Form action={url.loginAction} method="POST">
 				<Button element={'input'}
 					name="accept"

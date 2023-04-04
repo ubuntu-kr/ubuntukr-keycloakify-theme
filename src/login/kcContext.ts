@@ -1,10 +1,6 @@
 import { getKcContext } from "keycloakify/login";
-//NOTE: In most of the cases you do not need to overload the KcContext, you can 
-// just call getKcContext(...) without type arguments.  
-// You want to overload the KcContext only if:  
-// - You have custom plugins that add some values to the context (like https://github.com/micedre/keycloak-mail-whitelisting that adds authorizedMailDomains)
-// - You want to add support for extra pages that are not yey featured by default, see: https://docs.keycloakify.dev/contributing#adding-support-for-a-new-page
-export const { kcContext } = getKcContext<
+
+export type KcContextExtension =
 	// NOTE: A 'keycloakify' field must be added 
 	// in the package.json to generate theses extra pages
 	// https://docs.keycloakify.dev/build-options#keycloakify.extrapages
@@ -13,20 +9,18 @@ export const { kcContext } = getKcContext<
 	// NOTE: register.ftl is deprecated in favor of register-user-profile.ftl
 	// but let's say we use it anyway and have this plugin enabled: https://github.com/micedre/keycloak-mail-whitelisting
 	// keycloak-mail-whitelisting define the non standard ftl global authorizedMailDomains, we declare it here.
-	| { pageId: "register.ftl"; authorizedMailDomains: string[]; }
->({
+	| { pageId: "register.ftl"; authorizedMailDomains: string[]; 
+};
+	
+//NOTE: In most of the cases you do not need to overload the KcContext, you can 
+// just call getKcContext(...) without type arguments.  
+// You want to overload the KcContext only if:  
+// - You have custom plugins that add some values to the context (like https://github.com/micedre/keycloak-mail-whitelisting that adds authorizedMailDomains)
+// - You want to add support for extra pages that are not yey featured by default, see: https://docs.keycloakify.dev/contributing#adding-support-for-a-new-page
+export const { kcContext } = getKcContext<KcContextExtension>({
 	// Uncomment to test the login page for development.
-	// mockPageId: "register-user-profile.ftl",
-	// mockPageId: "register.ftl",
-	// mockPageId: "login-reset-password.ftl",
-	// mockPageId: "login.ftl",
-	// mockPageId: "login-otp.ftl",
-	// mockPageId: "login-config-totp.ftl",
+	mockPageId: "login.ftl",
 	// mockPageId: "terms.ftl",
-	// mockPageId: "login-idp-link-email.ftl",
-	// mockPageId: "login-idp-link-confirm.ftl",
-	// mockPageId: "idp-review-user-profile.ftl",
-	mockPageId: "logout-confirm.ftl",
 	mockData: [
 		{
 			pageId: "login.ftl",
@@ -48,33 +42,29 @@ export const { kcContext } = getKcContext<
 
 					},
 					{
-						providerId: "github1",
+						providerId: "google",
 						loginUrl: "github.com",
-						alias: "github",
-						displayName: "GitHub",
+						alias: "google",
+						displayName: "Google",
 						
 					},
 					{
-						providerId: "github2",
-						loginUrl: "github.com",
-						alias: "github",
-						displayName: "GitHub",
+						providerId: "facebook",
+						loginUrl: "facebook.com",
+						alias: "facebook",
+						displayName: "Facebook",
 						
 					},
 					{
-						providerId: "github3",
-						loginUrl: "github.com",
-						alias: "github",
-						displayName: "GitHub",
+						providerId: "twitter",
+						loginUrl: "twitter.com",
+						alias: "twitter",
+						displayName: "Twitter",
 						
 					}
 				]
 			}
 		},
-		// {
-		// 	pageId: "my-extra-page-2.ftl",
-		// 	someCustomValue: "foo bar baz"
-		// },
 		{
 			//NOTE: You will either use register.ftl (legacy) or register-user-profile.ftl, not both
 			pageId: "register-user-profile.ftl",

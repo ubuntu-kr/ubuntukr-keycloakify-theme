@@ -30,7 +30,7 @@
     "dependencies": {
         "@canonical/react-components": "^0.38.0",
         "evt": "^2.4.15",
-        "keycloakify": "^7.3.0",
+        "keycloakify": "^7.6.3",
         "powerhooks": "^0.26.7",
         "react": "18.1.0",
         "react-dom": "18.1.0",
@@ -40,9 +40,9 @@
         "@types/node": "^15.3.1",
         "@types/react": "18.0.9",
         "@types/react-dom": "18.0.4",
-        "react-scripts": "5.0.0",
-        "sass": "^1.58.3",
-        "typescript": "~4.8.0"
+        "react-scripts": "5.0.1",
+        "typescript": "~4.7.0",
+        "sass": "^1.58.3"
     },
     "eslintConfig": {
         "extends": [
