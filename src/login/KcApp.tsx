@@ -30,6 +30,7 @@ const IdpReviewUserProfile = lazy(() => import("./pages/IdpReviewUserProfile"));
 const LogoutConfirm = lazy(() => import("./pages/LogoutConfirm"));
 const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
 const Info = lazy(() => import("keycloakify/login/pages/Info"));
+const LoginVerifyEmail = lazy(() => import("./pages/LoginVerifyEmail"));
 
 // This is like adding classes to theme.properties 
 // https://github.com/keycloak/keycloak/blob/11.0.3/themes/src/main/resources/theme/keycloak/login/theme.properties
@@ -88,6 +89,7 @@ export default function App(props: { kcContext: KcContext; }) {
                     case "idp-review-user-profile.ftl": return <IdpReviewUserProfile {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     case "logout-confirm.ftl": return <LogoutConfirm {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     case "login-update-password.ftl": return <LoginUpdatePassword {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
+                    case "login-verify-email.ftl": return <LoginVerifyEmail {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // case "my-extra-page-1.ftl": return <MyExtraPage1 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // case "my-extra-page-2.ftl": return <MyExtraPage2 {...{ kcContext, i18n, Template, classes }} doUseDefaultCss={true} />;
                     // We choose to use the default Template for the Info page and to download the theme resources.

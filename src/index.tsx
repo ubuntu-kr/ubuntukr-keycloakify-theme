@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { StrictMode, lazy, Suspense } from "react";
 import { kcContext as kcLoginThemeContext } from "./login/kcContext";
 
-console.log("kcLoginThemeContext", kcLoginThemeContext);
+// console.log("kcLoginThemeContext", kcLoginThemeContext);
 const KcLoginThemeApp = lazy(() => import("./login/KcApp"));
 
 createRoot(document.getElementById("root")!).render(
