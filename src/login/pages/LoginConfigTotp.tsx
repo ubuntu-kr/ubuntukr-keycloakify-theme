@@ -4,8 +4,9 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
 import type { KcContext as KcContextBase } from "keycloakify/login/kcContext";
+import { MessageKey } from "keycloakify/login/i18n/i18n";
 
-import { Row, Col, Card, Button, Form, Input } from "@canonical/react-components";
+import { Button, Form, Input } from "@canonical/react-components";
 
 export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pageId: "login-config-totp.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, ...kcProps } = props;
@@ -30,8 +31,8 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                         <h3 className="p-stepped-list__title">{msg("loginTotpStep1")}</h3>
 
                         <ul id="kc-totp-supported-apps" className="p-stepped-list__content">
-                            {(totp.policy.supportedApplications != null) ? totp.policy.supportedApplications.map(app => (
-                                <li>{app}</li>
+                            {(totp.supportedApplications != null) ? totp.supportedApplications.map(app => (
+                                <li>{msgStr(app as MessageKey, app)}</li>
                             )) : (<></>)}
 
                         </ul>

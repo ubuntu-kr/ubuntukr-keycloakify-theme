@@ -22,7 +22,8 @@
         ],
         "extraLoginPages": [
         ],
-        "keycloakVersionDefaultAssets": "21.0.1"
+        "keycloakVersionDefaultAssets": "21.0.1",
+        "bundler": "mvn"
     },
     "author": "Ubuntu Korea Community",
     "license": "MIT",
