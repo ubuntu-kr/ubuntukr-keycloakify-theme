@@ -29,7 +29,7 @@
     "license": "MIT",
     "keywords": [],
     "dependencies": {
-        "@canonical/react-components": "^0.38.0",
+        "@canonical/react-components": "^0.42.0",
         "evt": "^2.4.15",
         "keycloakify": "^7.14.2",
         "powerhooks": "^0.26.8",
