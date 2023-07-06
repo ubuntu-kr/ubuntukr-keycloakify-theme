@@ -96,7 +96,8 @@ export const { useI18n } = createUseI18n({
 
         "pageExpiredTitle":"페이지가 만료되었습니다",
         "pageExpiredMsg1":"로그인을 다시 시작하려면,",
-        "pageExpiredMsg2":"로그인을 계속 진행하려면,"
+        "pageExpiredMsg2":"로그인을 계속 진행하려면,",
+        "alreadyLoggedIn": "이미 로그인 하셨습니다."
     }
 });
 
