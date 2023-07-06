@@ -2,6 +2,8 @@ import { assert } from "keycloakify/tools/assert";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
+import { Button } from "@canonical/react-components";
+
 
 export default function Info(props: PageProps<Extract<KcContext, { pageId: "info.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
@@ -28,16 +30,22 @@ export default function Info(props: PageProps<Extract<KcContext, { pageId: "info
                 </p>
                 {!skipLink && pageRedirectUri !== undefined ? (
                     <p>
-                        <a href={pageRedirectUri}>{msg("backToApplication")}</a>
+                        <Button element="a" href={pageRedirectUri} appearance="base">
+                            {msg("backToApplication")}
+                        </Button>
                     </p>
                 ) : actionUri !== undefined ? (
                     <p>
-                        <a href={actionUri}>{msg("proceedWithAction")}</a>
+                        <Button element="a" href={actionUri} appearance="base">
+                            {msg("proceedWithAction")}
+                        </Button>
                     </p>
                 ) : (
                     client.baseUrl !== undefined && (
                         <p>
-                            <a href={client.baseUrl}>{msg("backToApplication")}</a>
+                            <Button element="a" href={client.baseUrl} appearance="base">
+                                {msg("backToApplication")}
+                            </Button>
                         </p>
                     )
                 )}
