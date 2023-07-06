@@ -94,6 +94,9 @@ export const { useI18n } = createUseI18n({
         "emailLinkIdp4":"이미 이메일을 다른 브라우저에서 인증 하셨다면",
         "emailLinkIdp5":"하여 계속하실 수 있습니다.",
 
+        "pageExpiredTitle":"페이지가 만료되었습니다",
+        "pageExpiredMsg1":"로그인을 다시 시작하려면,",
+        "pageExpiredMsg2":"로그인을 계속 진행하려면,"
     }
 });
 
