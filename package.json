@@ -1,71 +1,48 @@
 {
     "name": "ubuntukr-keycloakify-theme",
     "homepage": "https://github.com/ubuntu-kr/ubuntukr-keycloakify-theme",
-    "version": "0.0.12",
+    "version": "0.1.0",
     "description": "Keycloak theme for Ubuntu Korea",
     "repository": {
         "type": "git",
         "url": "git://github.com/ubuntu-kr/ubuntukr-keycloakify-theme.git"
     },
+    "type": "module",
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "build-keycloak-theme": "sass --load-path=node_modules src:dist --style=compressed && yarn build && keycloakify",
-        "download-builtin-keycloak-theme": "download-builtin-keycloak-theme 15.0.2",
-        "build-css": "sass -w --load-path=node_modules src:dist --style=compressed"
-    },
-    "keycloakify": {
-        "groupId": "org.ubuntu-kr.keycloak",
-        "artifactId": "ubuntukr-theme",
-        "extraThemeProperties": [
-            "locales=en,ko"
-        ],
-        "extraLoginPages": [
-        ],
-        "keycloakVersionDefaultAssets": "21.0.1",
-        "bundler": "mvn"
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "build-keycloak-theme": "npm run build && PATH=\"$PWD/scripts/no-maven:$PATH\" keycloakify build",
+        "build-account-theme": "node account-console-theme/build-jar.mjs",
+        "build-all": "npm run build-keycloak-theme && npm run build-account-theme"
     },
     "author": "Ubuntu Korea Community",
     "license": "MIT",
     "keywords": [],
     "dependencies": {
-        "@canonical/react-components": "^0.42.0",
-        "evt": "^2.4.15",
-        "keycloakify": "^7.14.2",
-        "powerhooks": "^0.26.8",
+        "@canonical/react-components": "0.42.0",
+        "keycloakify": "^11.16.4",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "vanilla-framework": "^4.0.0"
+        "react-markdown": "^9.1.0",
+        "vanilla-framework": "4.0.0"
     },
     "devDependencies": {
-        "@types/node": "^15.3.1",
-        "@types/react": "18.0.9",
-        "@types/react-dom": "18.0.4",
-        "react-scripts": "5.0.1",
-        "typescript": "~4.7.0",
-        "sass": "^1.58.3"
+        "@types/node": "^22.0.0",
+        "@types/react": "^18.2.43",
+        "@types/react-dom": "^18.2.17",
+        "@vitejs/plugin-react": "^4.2.1",
+        "sass": "~1.63.6",
+        "typescript": "^5.2.2",
+        "vite": "^5.4.0"
     },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ],
-        "rules": {
-            "react-hooks/exhaustive-deps": "off",
-            "@typescript-eslint/no-redeclare": "off",
-            "no-labels": "off"
+    "overrides": {
+        "@canonical/react-components": {
+            "vanilla-framework": "$vanilla-framework",
+            "@types/react": "$@types/react",
+            "@types/react-dom": "$@types/react-dom"
         }
     },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
+    "engines": {
+        "node": "^18.0.0 || >=20.0.0"
     }
 }

@@ -1,11 +1,10 @@
-import React from "react";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
-import type { KcContext } from "../kcContext";
-import type { I18n } from "../i18n";
 import { Button, Form } from "@canonical/react-components";
+import type { KcContext } from "../KcContext";
+import type { I18n } from "../i18n";
 
 export default function LogoutConfirm(props: PageProps<Extract<KcContext, { pageId: "logout-confirm.ftl" }>, I18n>) {
-    const { kcContext, i18n, doUseDefaultCss, Template, ...kcProps } = props;
+    const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
     const { url, client, logoutConfirm } = kcContext;
 
@@ -13,20 +12,22 @@ export default function LogoutConfirm(props: PageProps<Extract<KcContext, { page
 
     return (
         <Template
-            {...{ kcContext, i18n, doUseDefaultCss, ...kcProps }}
+            kcContext={kcContext}
+            i18n={i18n}
+            doUseDefaultCss={doUseDefaultCss}
+            classes={classes}
             displayMessage={false}
-            headerNode={msg("logoutConfirmTitle")}>
+            headerNode={msg("logoutConfirmTitle")}
+        >
             <div id="kc-logout-confirm">
                 <p className="instruction">{msg("logoutConfirmHeader")}</p>
                 <Form className="form-actions" action={url.logoutConfirmAction} method="POST">
                     <input type="hidden" name="session_code" value={logoutConfirm.code} />
                     <div>
-                        <div id="kc-form-options">
-                            <div></div>
-                        </div>
                         <div id="kc-form-buttons">
-                            <Button element={'input'}
-                                className={"p-button"}
+                            <Button
+                                element="input"
+                                className="p-button"
                                 tabIndex={4}
                                 name="confirmLogout"
                                 id="kc-logout"
