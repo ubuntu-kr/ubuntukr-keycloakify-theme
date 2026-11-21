@@ -1,53 +1,76 @@
-import { assert } from "keycloakify/tools/assert";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
-import type { KcContext } from "../kcContext";
-import type { I18n } from "../i18n";
+import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { Button } from "@canonical/react-components";
-
+import type { KcContext } from "../KcContext";
+import type { I18n } from "../i18n";
 
 export default function Info(props: PageProps<Extract<KcContext, { pageId: "info.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
-    const { msgStr, msg } = i18n;
-
-    assert(kcContext.message !== undefined);
+    const { advancedMsgStr, msg } = i18n;
 
     const { messageHeader, message, requiredActions, skipLink, pageRedirectUri, actionUri, client } = kcContext;
 
+    const link = (() => {
+        if (skipLink) {
+            return undefined;
+        }
+
+        if (pageRedirectUri) {
+            return { href: pageRedirectUri, label: msg("backToApplication") };
+        }
+
+        if (actionUri) {
+            return { href: actionUri, label: msg("proceedWithAction") };
+        }
+
+        if (client.baseUrl) {
+            return { href: client.baseUrl, label: msg("backToApplication") };
+        }
+
+        return undefined;
+    })();
+
     return (
         <Template
-            {...{ kcContext, i18n, doUseDefaultCss, classes }}
+            kcContext={kcContext}
+            i18n={i18n}
+            doUseDefaultCss={doUseDefaultCss}
+            classes={classes}
             displayMessage={false}
-            headerNode={messageHeader !== undefined ? <>{messageHeader}</> : <>{message.summary}</>}
+            headerNode={
+                <span
+                    dangerouslySetInnerHTML={{
+                        __html: kcSanitize(messageHeader ? advancedMsgStr(messageHeader) : message.summary)
+                    }}
+                />
+            }
         >
             <div id="kc-info-message">
-                <p className="instruction">
-                    {message.summary}
+                <p
+                    className="instruction"
+                    dangerouslySetInnerHTML={{
+                        __html: kcSanitize(
+                            (() => {
+                                let html = message.summary?.trim();
 
-                    {requiredActions !== undefined && (
-                        <b>{requiredActions.map(requiredAction => msgStr(`requiredAction.${requiredAction}` as const)).join(",")}</b>
-                    )}
-                </p>
-                {!skipLink && pageRedirectUri !== undefined ? (
+                                if (requiredActions) {
+                                    html += " <b>";
+                                    html += requiredActions.map(requiredAction => advancedMsgStr(`requiredAction.${requiredAction}`)).join(", ");
+                                    html += "</b>";
+                                }
+
+                                return html;
+                            })()
+                        )
+                    }}
+                />
+                {link !== undefined && (
                     <p>
-                        <Button element="a" href={pageRedirectUri} appearance="base">
-                            {msg("backToApplication")}
+                        <Button element="a" href={link.href} appearance="base">
+                            {link.label}
                         </Button>
                     </p>
-                ) : actionUri !== undefined ? (
-                    <p>
-                        <Button element="a" href={actionUri} appearance="base">
-                            {msg("proceedWithAction")}
-                        </Button>
-                    </p>
-                ) : (
-                    client.baseUrl !== undefined && (
-                        <p>
-                            <Button element="a" href={client.baseUrl} appearance="base">
-                                {msg("backToApplication")}
-                            </Button>
-                        </p>
-                    )
                 )}
             </div>
         </Template>

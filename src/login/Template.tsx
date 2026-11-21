@@ -1,29 +1,38 @@
-// Copy pasted from: https://github.com/InseeFrLab/keycloakify/blob/main/src/lib/components/shared/Template.tsx
-
-// You can replace all relative imports by cherry picking files from the keycloakify module.  
-// For example, the following import:  
-// import { assert } from "./tools/assert";
-// becomes:  
-import { assert } from "keycloakify/tools/assert";
+import "./KcCustomStyle.scss";
+import { useEffect, useState } from "react";
 import { clsx } from "keycloakify/tools/clsx";
-import { usePrepareTemplate } from "keycloakify/lib/usePrepareTemplate";
-import { type TemplateProps } from "keycloakify/login/TemplateProps";
-import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
-import type { KcContext } from "./kcContext";
+import { kcSanitize } from "keycloakify/lib/kcSanitize";
+import type { TemplateProps } from "keycloakify/login/TemplateProps";
+import { getKcClsx } from "keycloakify/login/lib/kcClsx";
+import { useSetClassName } from "keycloakify/tools/useSetClassName";
+import { useInitialize } from "keycloakify/login/Template.useInitialize";
+import { Tooltip, Strip, Col, Notification, Button } from "@canonical/react-components";
 import type { I18n } from "./i18n";
-import { Navigation, Tooltip, Strip, Col, Notification, Button, Input } from "@canonical/react-components";
-import { useState } from "react";
+import type { KcContext } from "./KcContext";
+import logoUrl from "./assets/UbuntuKrCircleWhite.svg";
 
+const severityByMessageType = {
+    success: "positive",
+    warning: "caution",
+    error: "negative",
+    info: "information"
+} as const;
+
+/**
+ * Ubuntu Korea page layout (Vanilla framework): dark navigation bar with the language
+ * selector, "suru" title strip, content column and footer.
+ * It replaces keycloakify/login/Template for the pages listed in ./KcPage.tsx.
+ */
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
         displayInfo = false,
         displayMessage = true,
         displayRequiredFields = false,
-        displayWide = false,
-        showAnotherWayIfPresent = true,
         headerNode,
-        showUsernameNode = null,
+        socialProvidersNode = null,
         infoNode = null,
+        documentTitle,
+        bodyClassName,
         kcContext,
         i18n,
         doUseDefaultCss,
@@ -31,32 +40,52 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
         children
     } = props;
 
-    const { getClassName } = useGetClassName({ doUseDefaultCss, classes });
+    const { kcClsx } = getKcClsx({ doUseDefaultCss, classes });
 
-    const { msg, changeLocale, labelBySupportedLanguageTag, currentLanguageTag } = i18n;
+    const { msg, currentLanguage, enabledLanguages } = i18n;
 
-    const { realm, locale, auth, url, message, isAppInitiatedAction } = kcContext;
+    const { realm, auth, url, message, isAppInitiatedAction } = kcContext;
 
-    const { isReady } = usePrepareTemplate({
-        "doFetchDefaultThemeResources": doUseDefaultCss,
-        url,
-        "stylesCommon": [
-            // "node_modules/patternfly/dist/css/patternfly.min.css",
-            // "node_modules/patternfly/dist/css/patternfly-additions.min.css",
-            // "lib/zocial/zocial.css"
-        ],
-        "styles": [
-            // "css/login.css"
-        ],
-        "htmlClassName": getClassName("kcHtmlClass"),
-        "bodyClassName": undefined
+    useEffect(() => {
+        if (documentTitle !== undefined) {
+            document.title = documentTitle;
+        }
+    }, [documentTitle]);
+
+    useSetClassName({
+        qualifiedName: "html",
+        className: kcClsx("kcHtmlClass")
     });
 
-    const [isLangSelectorHidden, toggleLangSelector] = useState(true);
+    useSetClassName({
+        qualifiedName: "body",
+        className: bodyClassName ?? kcClsx("kcBodyClass")
+    });
 
-    if (!isReady) {
+    // Loads the scripts Keycloak asks for (kcContext.scripts, e.g. reCAPTCHA) and the
+    // session checker. With doUseDefaultCss=false no stylesheet is fetched.
+    const { isReadyToRender } = useInitialize({ kcContext, doUseDefaultCss });
+
+    const [isLangSelectorHidden, setIsLangSelectorHidden] = useState(true);
+
+    if (!isReadyToRender) {
         return null;
     }
+
+    const isUsernameShown = auth !== undefined && auth.showUsername && !auth.showResetCredentials;
+
+    const attemptedUsernameNode = (
+        <div id="kc-username">
+            <Button appearance="base" type="button">
+                <i className="p-icon--user"></i> <span id="kc-attempted-username">{auth?.attemptedUsername}</span>
+            </Button>
+            <Tooltip message={msg("restartLoginTooltip")}>
+                <Button appearance="base" element="a" id="reset-login" href={url.loginRestartFlowUrl}>
+                    <i className="p-icon--close"></i>
+                </Button>
+            </Tooltip>
+        </div>
+    );
 
     return (
         <div className="l-site">
@@ -64,173 +93,140 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 <div className="p-navigation__row">
                     <div className="p-navigation__banner">
                         <div className="p-navigation__tagged-logo">
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                             <a className="p-navigation__link" href="#">
                                 <div className="p-navigation__logo-tag">
-                                    <img className="p-navigation__logo-icon" src="https://github.com/ubuntu-kr/logo-artworks/raw/main/UbuntuKrCircleWhite.svg" alt="" />
+                                    <img className="p-navigation__logo-icon" src={logoUrl} alt="" />
                                 </div>
-                                <span className="p-navigation__logo-title">{msg("loginTitleHtml", realm.displayName)}</span>
+                                <span className="p-navigation__logo-title">{msg("loginTitleHtml", realm.displayName || realm.name)}</span>
                             </a>
                         </div>
-                        <a href="#navigation" className="p-navigation__toggle--open" title="menu">Menu</a>
-                        <a href="#navigation-closed" className="p-navigation__toggle--close" title="close menu">Close menu</a>
+                        <a href="#navigation" className="p-navigation__toggle--open" title="menu">
+                            Menu
+                        </a>
+                        <a href="#navigation-closed" className="p-navigation__toggle--close" title="close menu">
+                            Close menu
+                        </a>
                     </div>
-                    <nav className="p-navigation__nav" aria-label="Example sub navigation">
+                    <nav className="p-navigation__nav" aria-label="Site navigation">
                         <ul className="p-navigation__items">
                             <li className="p-navigation__item">
-                                <a className="p-navigation__link" href="https://ubuntu-kr.org">ubuntu-kr.org</a>
+                                <a className="p-navigation__link" href="https://ubuntu-kr.org">
+                                    ubuntu-kr.org
+                                </a>
                             </li>
                         </ul>
-                        {(realm.internationalizationEnabled && (assert(locale !== undefined), true) && locale.supported.length > 1) ?
-                            (
-                                <ul className="p-navigation__items">
-                                    <li className={`p-navigation__item--dropdown-toggle ${isLangSelectorHidden ? "" : "is-active"}`} id="link-4">
-                                        <a className="p-navigation__link" aria-controls="account-menu" onClick={() => toggleLangSelector(!isLangSelectorHidden)}>
-                                            {labelBySupportedLanguageTag[currentLanguageTag]}
-                                        </a>
-
-                                        <ul className="p-navigation__dropdown--right" id="account-menu" aria-hidden={isLangSelectorHidden}>
-                                            {locale.supported.map(({ languageTag }) =>
-                                                <li>
-                                                    <a onClick={() => changeLocale(languageTag)} className="p-navigation__dropdown-item">{labelBySupportedLanguageTag[languageTag]}</a>
-                                                </li>
-                                            )}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            ) : (<></>)}
+                        {enabledLanguages.length > 1 && (
+                            <ul className="p-navigation__items">
+                                <li className={clsx("p-navigation__item--dropdown-toggle", !isLangSelectorHidden && "is-active")} id="kc-locale">
+                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                    <a
+                                        className="p-navigation__link"
+                                        id="kc-current-locale-link"
+                                        href="#"
+                                        role="button"
+                                        aria-controls="language-switch"
+                                        aria-expanded={!isLangSelectorHidden}
+                                        onClick={event => {
+                                            event.preventDefault();
+                                            setIsLangSelectorHidden(!isLangSelectorHidden);
+                                        }}
+                                    >
+                                        {currentLanguage.label}
+                                    </a>
+                                    <ul className="p-navigation__dropdown--right" id="language-switch" aria-hidden={isLangSelectorHidden}>
+                                        {enabledLanguages.map(({ languageTag, label, href }) => (
+                                            <li key={languageTag}>
+                                                <a href={href} className="p-navigation__dropdown-item" id={`language-${languageTag}`}>
+                                                    {label}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            </ul>
+                        )}
                     </nav>
                 </div>
-            </header >
-            {/* Page title area  */}
+            </header>
+
+            {/* Page title area */}
             <Strip shallow includeCol={false} element="section" type="suru-topped" rowClassName="u-vertically-center">
                 <Col size={8}>
-                    {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
-                        <h2 id="kc-page-title">{headerNode}</h2>
-                    ) : (
-                        <h2 id="kc-page-title">{showUsernameNode}</h2>
-                    )}
+                    {/* When Keycloak shows the attempted username (e.g. OTP step) it stands in for the title. */}
+                    <h2 id="kc-page-title">{!isUsernameShown && headerNode}</h2>
                 </Col>
             </Strip>
 
             <Strip includeCol={false} element="section" rowClassName="u-vertically-center">
                 <Col size={8}>
-
-                    {!(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
-                        displayRequiredFields ? (
-                            <div className={getClassName("kcContentWrapperClass")}>
-                                <div className={clsx(getClassName("kcLabelWrapperClass"), "subtitle")}>
-                                    <span className="subtitle">
-                                        <span className="required">*</span>
-                                        {msg("requiredFields")}
-                                    </span>
-                                </div>
-                            </div>
-                        ) : (<></>
-                        )
-                    ) : displayRequiredFields ? (
-                        <div className={getClassName("kcContentWrapperClass")}>
-                            <div className={clsx(getClassName("kcLabelWrapperClass"), "subtitle")}>
-                                <span className="subtitle">
-                                    <span className="required">*</span> {msg("requiredFields")}
-                                </span>
-                            </div>
-                            <div id="kc-username">
-                                <Button appearance="base"><i className="p-icon--user"></i> <span id="kc-attempted-username">{auth?.attemptedUsername}</span></Button>
-                                <Tooltip message={msg("restartLoginTooltip")}>
-                                    <Button appearance="base" element="a" id="reset-login" href={url.loginRestartFlowUrl}><i className="p-icon--close"></i></Button>
-                                </Tooltip>
-                            </div>
+                    {displayRequiredFields && (
+                        <div className="subtitle">
+                            <span className="required">*</span> {msg("requiredFields")}
                         </div>
-                    ) : (
-                        <>
-                            <div className={getClassName("kcFormGroupClass")}>
-                                <div id="kc-username">
-                                    <Button appearance="base"><i className="p-icon--user"></i> <span id="kc-attempted-username">{auth?.attemptedUsername}</span></Button>
-                                    <Tooltip message={msg("restartLoginTooltip")}>
-                                        <Button appearance="base" element="a" id="reset-login" href={url.loginRestartFlowUrl}><i className="p-icon--close"></i></Button>
-                                    </Tooltip>
-                                </div>
-                            </div>
-                        </>
                     )}
+                    {isUsernameShown && attemptedUsernameNode}
                     {/* App-initiated actions should not see warning messages about the need to complete the action during login. */}
                     {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
-                        <>
-                            {message.type === "success" && <Notification
-                                severity="positive"
-                            >
-                                {message.summary}
-                            </Notification>}
-                            {message.type === "warning" && <Notification
-                                severity="caution"
-                            >
-                                {message.summary}
-                            </Notification>}
-                            {message.type === "error" && <Notification
-                                severity="negative"
-                            >
-                                {message.summary}
-                            </Notification>}
-                            {message.type === "info" && <Notification
-                                severity="information"
-                            >
-                                {message.summary}
-                            </Notification>}
-                        </>
+                        <Notification severity={severityByMessageType[message.type]}>
+                            <span className="kc-feedback-text" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
+                        </Notification>
                     )}
                     {children}
-                    {auth !== undefined && auth.showTryAnotherWayLink && showAnotherWayIfPresent && (
-                        <form
-                            id="kc-select-try-another-way-form"
-                            action={url.loginAction}
-                            method="post"
-                            className={clsx(displayWide && getClassName("kcContentWrapperClass"))}>
-                            <div className={clsx(
-                                displayWide && [getClassName("kcFormSocialAccountContentClass"), getClassName("kcFormSocialAccountClass")]
-                            )}>
-                                <div className={getClassName("kcFormGroupClass")}>
-                                    <input type="hidden" name="tryAnotherWay" value="on" />
-                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                    <a href="#" id="try-another-way" onClick={() => {
-                                        document.forms["kc-select-try-another-way-form" as never].submit();
-                                        return false;
-                                    }}>
-                                        {msg("doTryAnotherWay")}
-                                    </a>
-                                </div>
-                            </div>
+                    {auth !== undefined && auth.showTryAnotherWayLink && (
+                        <form id="kc-select-try-another-way-form" action={url.loginAction} method="post">
+                            <input type="hidden" name="tryAnotherWay" value="on" />
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a
+                                href="#"
+                                id="try-another-way"
+                                onClick={event => {
+                                    event.preventDefault();
+                                    document.forms["kc-select-try-another-way-form" as never].requestSubmit();
+                                }}
+                            >
+                                {msg("doTryAnotherWay")}
+                            </a>
                         </form>
                     )}
+                    {socialProvidersNode}
                     {displayInfo && (
-                        <div id="kc-info" className={getClassName("kcSignUpClass")}>
-                            <div id="kc-info-wrapper" className={getClassName("kcInfoAreaWrapperClass")}>
-                                {infoNode}
-                            </div>
+                        <div id="kc-info">
+                            <div id="kc-info-wrapper">{infoNode}</div>
                         </div>
                     )}
                 </Col>
             </Strip>
+
             <footer className="l-footer--sticky p-strip--light">
                 <nav className="row" aria-label="Footer">
                     <div className="has-cookie">
                         <p>© 2023-Present Ubuntu Korea Community.</p>
                         <ul className="p-inline-list--middot">
                             <li className="p-inline-list__item">
-                                <a href="https://ubuntu.com/community/code-of-conduct"><small>우분투 행동강령 (Ubuntu Code of Conducts)</small></a>
+                                <a href="https://ubuntu.com/community/code-of-conduct">
+                                    <small>우분투 행동강령 (Ubuntu Code of Conducts)</small>
+                                </a>
                             </li>
                             <li className="p-inline-list__item">
-                                <a href="https://disclosures.ubuntu-kr.org/legal/"><small>정관 및 세칙 (Articles and bylaws)</small></a>
+                                <a href="https://disclosures.ubuntu-kr.org/legal/">
+                                    <small>정관 및 세칙 (Articles and bylaws)</small>
+                                </a>
                             </li>
                             <li className="p-inline-list__item">
-                                <a href="https://disclosures.ubuntu-kr.org/privacy-policy/"><small>개인정보처리방침 (Privacy policy)</small></a>
+                                <a href="https://disclosures.ubuntu-kr.org/privacy-policy/">
+                                    <small>개인정보처리방침 (Privacy policy)</small>
+                                </a>
                             </li>
                             <li className="p-inline-list__item">
-                                <a href="mailto:contact@ubuntu-kr.org"><small>문의 (Contact)</small></a>
+                                <a href="mailto:contact@ubuntu-kr.org">
+                                    <small>문의 (Contact)</small>
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </footer>
-        </div >
+        </div>
     );
 }

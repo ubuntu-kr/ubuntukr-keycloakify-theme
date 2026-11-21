@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+// Stand-in for the `mvn` command, used by `npm run build-keycloak-theme`.
+//
+// Keycloakify 11 shells out to Maven (`mvn --version`, then `mvn clean install` in a
+// generated project made of a pom.xml and src/main/resources) only to zip the theme
+// into a jar. This script does that packaging with Node.js so that no JVM / Maven /
+// access to Maven Central is needed.
+//
+// It only supports what this project needs: a pom without dependencies (no shaded
+// extension, i.e. no account v1 theme and no "22-to-25" Keycloak target). For anything
+// else it fails and a real Maven has to be used (`npx keycloakify build`).
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+
+const args = process.argv.slice(2);
+
+if (args.includes("--version") || args.includes("-v")) {
+    console.log("Apache Maven stand-in (scripts/no-maven/mvn): packages the theme jar with Node.js");
+    process.exit(0);
+}
+
+function fail(message) {
+    console.error(`scripts/no-maven/mvn: ${message}`);
+    process.exit(1);
+}
+
+if (!args.includes("install") && !args.includes("package")) {
+    fail(`unsupported arguments: ${args.join(" ")}`);
+}
+
+const projectDirPath = process.cwd();
+const pomFilePath = path.join(projectDirPath, "pom.xml");
+
+if (!fs.existsSync(pomFilePath)) {
+    fail(`no pom.xml in ${projectDirPath}`);
+}
+
+const pom = fs.readFileSync(pomFilePath, "utf8");
+
+if (/<dependenc(y|ies)>|<plugin>/.test(pom)) {
+    fail("the generated pom.xml declares dependencies/plugins (shaded extension), which needs a real Maven");
+}
+
+const getTag = tagName => {
+    const match = pom.match(new RegExp(`<${tagName}>([^<]+)</${tagName}>`));
+    if (match === null) {
+        fail(`<${tagName}> not found in pom.xml`);
+    }
+    return match[1].trim();
+};
+
+const groupId = getTag("groupId");
+const artifactId = getTag("artifactId");
+const version = getTag("version");
+
+if (getTag("packaging") !== "jar") {
+    fail("only jar packaging is supported");
+}
+
+const { readDirEntries, writeJar } = await import(
+    pathToFileURL(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "jar.mjs")).href
+);
+
+const resourcesDirPath = path.join(projectDirPath, "src", "main", "resources");
+
+if (!fs.existsSync(resourcesDirPath)) {
+    fail(`${resourcesDirPath} does not exist`);
+}
+
+const targetDirPath = path.join(projectDirPath, "target");
+
+if (args.includes("clean")) {
+    fs.rmSync(targetDirPath, { recursive: true, force: true });
+}
+
+const mavenMetaDir = `META-INF/maven/${groupId}/${artifactId}/`;
+
+const { fileCount, size } = writeJar(path.join(targetDirPath, `${artifactId}-${version}.jar`), [
+    ...readDirEntries(resourcesDirPath),
+    { name: `${mavenMetaDir}pom.xml`, data: pom },
+    { name: `${mavenMetaDir}pom.properties`, data: `artifactId=${artifactId}\ngroupId=${groupId}\nversion=${version}\n` }
+]);
+
+console.log(`Built ${artifactId}-${version}.jar (${fileCount} files, ${size} bytes) without Maven`);
