@@ -13,21 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.head_commit.author.name != 'actions'
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: '16'
-    - uses: bahmutov/npm-install@v1
-    - run: yarn build
-    - run: npx keycloakify
-    - uses: actions/upload-artifact@v2
+        node-version: '22'
+        cache: npm
+    - run: npm ci
+    - run: npm run build-all
+    - uses: actions/upload-artifact@v4
       with:
-        name: standalone_keycloak_theme
-        path: build_keycloak/target/*keycloak-theme*.jar
-    - uses: actions/upload-artifact@v2
-      with:
-        name: build
-        path: build
+        name: keycloak_themes
+        path: dist_keycloak/*.jar
+        if-no-files-found: error
 
   check_if_version_upgraded:
     name: Check if version upgrade
@@ -56,11 +53,10 @@ jobs:
         needs.check_if_version_upgraded.outputs.is_release_beta == 'true'
       )
     steps:
-    - run: mkdir jars
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4
       with:
-        name: standalone_keycloak_theme
-    - run: mv *keycloak-theme*.jar jars/standalone-keycloak-theme.jar
+        name: keycloak_themes
+        path: jars
     - uses: softprops/action-gh-release@v1
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
@@ -68,7 +64,8 @@ jobs:
         target_commitish: ${{ github.head_ref || github.ref }}
         generate_release_notes: true
         files: |
-          jars/standalone-keycloak-theme.jar
+          jars/ubuntukr-theme.jar
+          jars/ubuntukr-account-theme.jar
         draft: false
         prerelease: ${{ needs.check_if_version_upgraded.outputs.is_release_beta == 'true' }}
       env:
